@@ -10,7 +10,7 @@ namespace FE.Models
     public partial class LabelData
     {
         public int Id { get; set; }
-        public string Label { get; set; }
-        public string Content { get; set; }
+        public required string Label { get; set; }
+        public required string Content { get; set; }
     }
 }

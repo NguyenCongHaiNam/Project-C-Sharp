@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FE.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Drawing.Printing;
@@ -9,11 +10,16 @@ using System.Data.Entity.Validation;
 
 namespace FE.Controllers
 {
-    public class AccountController : Controller
+    public class UserController : Controller
     {
+    private readonly HttpClient _httpClient;
+    public UserController(){
+         _httpClient = new HttpClient();
+    }
+       
         private readonly MyDbContext _db = new MyDbContext();
 
-        // GET: Account/Index
+        // GET: User/Index
         public ActionResult Index()
         {
             if (HttpContext.Session.GetInt32("idUser") != null)
@@ -26,13 +32,13 @@ namespace FE.Controllers
             }
         }
 
-        // GET: Account/Register
+        // GET: User/Register
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: Account/Register
+        // POST: User/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(Users _user)
@@ -46,9 +52,7 @@ namespace FE.Controllers
                     try
                     {
                         _user.Password = GetMD5(_user.Password);
-                        Console.WriteLine("toi day roi");
                         _db.Users.Add(_user);
-                        Console.WriteLine("toi day roi nhung deo luu duoc");
                         _db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -77,13 +81,13 @@ namespace FE.Controllers
             return View();
         }
 
-        // GET: Account/Login
+        // GET: User/Login
         public ActionResult Login()
         {
             return View();
         }
 
-        // POST: Account/Login
+        // POST: User/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
@@ -91,15 +95,13 @@ namespace FE.Controllers
             if (ModelState.IsValid)
             {
                 var f_password = GetMD5(password);
-                Console.WriteLine(email + " " + f_password);
                 var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
-                Console.WriteLine(data);
+                Console.WriteLine(data.Count());
                 if (data.Count() > 0)
                 {
-                    Console.WriteLine("da vao duoc day");
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
-                    HttpContext.Session.SetInt32("idUser", data.FirstOrDefault().IdUser);
+                    HttpContext.Session.SetInt32("idUser",data.FirstOrDefault().IdUser);
                     return RedirectToAction("Index");
                 }
                 else
@@ -108,10 +110,11 @@ namespace FE.Controllers
                     return RedirectToAction("Login");
                 }
             }
-            return View();
+            TempData["error"] = "Input invalid";
+            return View("Login");
         }
 
-        // GET: Account/Logout
+        // GET: User/Logout
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -131,5 +134,42 @@ namespace FE.Controllers
             }
             return byte2String.ToString();
         }
+     public async Task<ActionResult> Classify(string url)
+    {
+        // Địa chỉ URL của API
+        string apiUrl = "http://127.0.0.1:5000/classify";
+
+        try
+        {
+            // Tạo đối tượng chứa dữ liệu JSON
+            var jsonContent = new StringContent("{\"url\": \"" + url + "\"}", Encoding.UTF8, "application/json");
+            Console.WriteLine(url);
+            // Gửi yêu cầu POST đến API
+            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
+
+            // Kiểm tra xem phản hồi có thành công không
+            if (response.IsSuccessStatusCode)
+            {
+                // Đọc nội dung của phản hồi
+                string responseData = await response.Content.ReadAsStringAsync();
+
+                // Hiển thị dữ liệu phản hồi lên màn hình
+                ViewBag.ResponseData = responseData;
+
+            }
+            else
+            {
+                // Xử lý trường hợp phản hồi không thành công
+                ViewBag.ResponseData = "Error: " + response.StatusCode;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Xử lý lỗi nếu có
+            ViewBag.ResponseData = "Error: " + ex.Message;
+        }
+
+        return View("Classify");
+    }
     }
 }

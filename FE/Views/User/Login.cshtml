@@ -11,7 +11,7 @@
                 Login
             </div>
             <div class="card-body">
-                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
@@ -25,8 +25,11 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login"/>
+                        <input type="submit" name="submit" class="btn btn-primary" value="Login" style="float: left; margin-right: 10px;"/>
+                        <a href="@Url.Action("Register", "User")" class="btn btn-secondary" style="float: right;">Register</a>
+                        <div style="clear: both;"></div>
                     </div>
+
                 }
             </div>
         </div>
