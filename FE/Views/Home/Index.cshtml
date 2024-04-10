@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center mt-5">
+                <h1 class="display-4">Welcome</h1>
+                <p class="lead">Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            </div>
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Login or Register</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <button class="btn btn-primary btn-lg" onclick="redirectToLogin()">Login</button>
+                        <span class="or-divider">OR</span>
+                        <button class="btn btn-success btn-lg" onclick="redirectToRegister()">Register</button>
+                    </div>
+                    <p class="card-text">Alternatively, you can continue as a guest.</p>
+                    <button class="btn btn-outline-secondary btn-block" onclick="redirectToGuest()">Continue as Guest</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .or-divider {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #6c757d; /* Màu xám */
+    }
+</style>
+
+<script>
+    function redirectToLogin() {
+        window.location.href = '/Account/Login';
+    }
+
+    function redirectToRegister() {
+        window.location.href = '/Account/Register';
+    }
+
+    function redirectToGuest() {
+        // Implement guest functionality or redirect to appropriate page
+        alert('Continuing as a guest...');
+    }
+</script>

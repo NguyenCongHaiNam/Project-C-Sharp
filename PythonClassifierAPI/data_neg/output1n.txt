@@ -1,0 +1,10 @@
+{
+    "url": "url",
+    "error": "",
+    "success": true,
+    "title": "article.title",
+    "keywords": "",
+    "published_date": "article.publish_date if article.publish_date else article.meta_data.get('pubdate', '')",
+    "top_img": "article.top_image",
+    "content": "- Cách diễn đạt thời VNCH ! - Chỉ đôi ba dòng mà làm kẻ như tôi đây thấy ấm lòng ! \\\"Giáo dục nhân bản\\\" là đây chứ không ở đâu xa... Giáo dục ảnh hưởng đến xã hội rất lớn , ta không biết giáo dục quan trọng như thế nào cho đến khi ta không còn nó . Giáo dục là nền tảng của một quốc gia , muốn phá hủy quốc gia đó.. Chỉ cần phá nát nền giáo dục là đủ ! st"
+}

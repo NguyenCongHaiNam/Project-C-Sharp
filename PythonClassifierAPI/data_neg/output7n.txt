@@ -1,0 +1,10 @@
+{
+    "url": "url",
+    "error": "",
+    "success": true,
+    "title": "article.title",
+    "keywords": "",
+    "published_date": "article.publish_date if article.publish_date else article.meta_data.get('pubdate', '')",
+    "top_img": "article.top_image",
+    "content": "Con đường đi lên chủ nghĩa xã hội ở VN rõ ràng là rất sáng tỏ rồi: CON ĐƯỜNG LÀM GIÀU VÀ CƯỚP GIỮ QUYỀN LỰC CHO QUAN CHỨC CỘNG SẢN VÀ GIA ĐÌNH, THÂN TÍN Bà Hoảng Thị Thúy Lan, bí thư kiêm chủ tịch hội đồng nhân dân tỉnh Vĩnh Phúc, tái đắc cử Bí thư tỉnh 100% phiếu bầu; lấy phiếu tín nhiệm của hội đồng nhân dân tỉnh 100% tín nhiệm cao. Đùng cái 100% nhất trí khai trừ khỏi đảng. Ông Võ Văn Thưởng cách đây 1 năm suýt soát 100% phiếu bầu làm Chủ tịch nước. Nay vẫn Quốc Hội đó, suýt soát 100 % phê truất ông này khỏi ghế chủ tịch nước. 100% của cái xứ mình là thế đó!"
+}

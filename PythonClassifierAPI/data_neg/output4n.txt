@@ -1,0 +1,10 @@
+{
+    "url": "url",
+    "error": "",
+    "success": true,
+    "title": "article.title",
+    "keywords": "",
+    "published_date": "article.publish_date if article.publish_date else article.meta_data.get('pubdate', '')",
+    "top_img": "article.top_image",
+    "content": "Từ một tay tuyên giáo Võ Văn Thưởng được bơm thổi lên làm chủ tịch nước. Đi đến đâu, anh Thưởng cũng nói đạo lý. Mà mấy thằng hay nói đạo lý là sống rất dở. Đến khi bị đánh bay ghế, người ta mới biết hóa ra cũng là một tay ba xạo và vô dụng. Cái may mắn của Võ Văn Thưởng là rớt đài nhưng chưa mất mạng. Võ Văn Thưởng không phải tự nguyện xin nghỉ mà là do Uỷ ban Kiểm tra Trung ương phát hiện ra vi phạm các điều đảng viên không được làm. Và từ đó Thưởng phải làm đơn xin thôi các chức vụ. Một kiểu ép “mày không làm thì sẽ biết tay tao”. Tức là nếu không có sự phát hiện thì Thưởng vẫn tiếp tục che giấu sai phạm của mình. Nhưng thôi, giữ được mạng là phúc và đời rồi."
+}

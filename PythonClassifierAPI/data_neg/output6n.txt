@@ -1,0 +1,10 @@
+{
+    "url": "url",
+    "error": "",
+    "success": true,
+    "title": "article.title",
+    "keywords": "",
+    "published_date": "article.publish_date if article.publish_date else article.meta_data.get('pubdate', '')",
+    "top_img": "article.top_image",
+    "content": "Ở nước ta, ăn thứ gì cũng chứa \\\"hóa chất\\\". Chỉ có ăn “HỐI LỘ” là không có hóa chất, cho nên các cán bộ lãnh đạo nào cũng tha hồ mà tranh ăn. Ăn trong tất cả mọi lãnh vực, ăn không chừa thứ gì, ăn đến tàn mạt, ăn cho dân cùng kiệt, ăn cho đến khi đất nước khánh tận.. vẫn còn tiếp tục ăn..!"
+}

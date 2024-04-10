@@ -1,0 +1,10 @@
+{
+    "url": "url",
+    "error": "",
+    "success": true,
+    "title": "article.title",
+    "keywords": "",
+    "published_date": "article.publish_date if article.publish_date else article.meta_data.get('pubdate', '')",
+    "top_img": "article.top_image",
+    "content": "MỸ: THIÊN ĐÀNG CỦA CỘNG SẢN TÀU VÀ VIỆT Mỹ là thiên đàng của ai? Không biết. Nhưng tôi biết rõ, chắc chắn Mỹ là thiên đường của quan chức CSVN và cả của Trung cộng và con cháu họ. Hàng hàng lớp lớp con ông cháu cha của cộng sản Việt và Tàu đã đi Mỹ học, làm ăn, mua bất động sản và tìm cách ở lại từ hơn 30 năm nay. Có 4 nguyên nhân chính cho hiện tượng này: 1. Sau khi làm giàu, họ tìm chỗ để cất giữ tài sản để xài nhiều đời. Ở Việt Nam thì không an toàn khi bị đồng chí cho vào lò, hay bị ganh tị. Mang tài sản sang cất ở các xứ XHCN anh em như Bắc Hàn, Trung cộng, Cuba lại càng không dám vì cướp biết bụng cướp. 2. Tình đồng chí trong đảng thắm thiết đến nỗi quan chức nào cũng nơm nớp lo âu rằng một khi về hưu, mất quyền lục thì trở thành miếng mồi ngon cho các đồng chí đương quyền. Hai CTN Nguyễn Xuân Phúc và mới đây nhất là Võ Văn Thưởng còn chứng minh rằng, ngay cả khi còn tại chức, chưa về hưu vẫn bị đồng chí hạ đo ván. 3. Quan chức rất giàu. Bí thư xã cũng có thể trở thành triệu phú đô la Mỹ. Họ có nhiều tiền nên muốn hưởng thụ lâu dài, không muốn sống trong môi trường ngày càng bị hủy diệt nặng nề hơn. Điển hình là không có nước sạch, thực phẩm sạch, giờ không biết ăn gì để không bị nhiễm độc nếu không mua từ nước ngoài mang vào. 4. Họ muốn con cháu họ thụ đắc một nền giáo dục tốt đẹp, có khả năng đào tạo nhân tài mà VN không có được. Là quan chức, họ biết quá rõ sự tồi tệ, thối nát của ngành giáo dục VN. Trung cộng đi trước CSVN chừng hơn 10 năm sau khi kinh tế thị trường bên đó phát triển. (Nhật ký yêu nước)"
+}

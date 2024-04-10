@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "URL Classification";
+}
+
+<h2>URL Classification</h2>
+
+@using (Html.BeginForm("Classify", "Home", FormMethod.Post))
+{
+    <div>
+        <label for="urlInput">Enter URL:</label>
+        <input type="text" id="urlInput" name="url" required>
+        <button type="submit">Submit</button>
+    </div>
+}
+
+@if (ViewBag.ResponseData != null)
+{
+    <h3>Result:</h3>
+    <p>@ViewBag.ResponseData</p>
+}

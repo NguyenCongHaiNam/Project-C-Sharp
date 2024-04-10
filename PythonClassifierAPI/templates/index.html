@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Classifier</title>
+</head>
+<body>
+    <h1>Text Classifier</h1>
+    <form id="classify-form">
+        <label for="url">Enter URL:</label>
+        <input type="text" id="url" name="url" required>
+        <button type="submit">Classify</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('classify-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const url = document.getElementById('url').value;
+            const response = await fetch('/classify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: url })
+            });
+
+            const data = await response.json();
+
+            document.getElementById('result').innerHTML =`
+                <h2>Result:</h2>
+                <p>URL: ${data.url}</p>
+                <p>Predicted Label: ${data.predicted_label}</p>
+                <p>Keywords: ${data.content.keywords}</p>
+                <p>Content Error: ${data.content.error}</p>
+                <p>Published Date: ${data.content.published_date}</p>
+                <p>Image: <img src="${data.content.top_img}" /></p>
+                <p>Content: ${data.content.content}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
