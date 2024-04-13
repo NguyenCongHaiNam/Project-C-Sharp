@@ -1,4 +1,5 @@
-﻿
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,22 +22,33 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action='Login'>Classify</a>
-                                </div>                               
+                        <li class="nav-item">
+                        @{
+                            var idUser = HttpContextAccessor.HttpContext.Session.GetInt32("idUser");
+                            var area = "";
+                            var controller = "";
+                            var action = "";
 
-                            </div>
-                        </li>
+                            if (idUser.HasValue && idUser.Value == 1) // Admin
+                            {
+                                area = "Admin";
+                                controller = "Dashboard";
+                                action = "Index";
+                            }
+                            else // User
+                            {
+                                area = "User";
+                                controller = "Home";
+                                action = "Dashboard";
+                            }
+                        }
+                        <a class="nav-link text-dark" asp-area="@area" asp-controller="@controller" asp-action="@action">Dashboard</a>
+                    </li>
                         
                     </ul>
                 </div>
@@ -48,12 +60,6 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - News Classify - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

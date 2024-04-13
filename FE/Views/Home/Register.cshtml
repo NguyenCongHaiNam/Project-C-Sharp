@@ -6,7 +6,7 @@
 }
 <div class="row justify-content-md-center">
     <div class="col-md-5">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
         {
             //@Html.ValidationSummary()
             @Html.AntiForgeryToken()
@@ -56,3 +56,6 @@
         }
     </div>
 </div>
+<div id="layoutAuthentication_footer">
+                @Html.Partial("_FooterLayout");
+            </div>

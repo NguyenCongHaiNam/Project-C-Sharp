@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-namespace FE.Areas.Admin.Controllers;
-[Area("Admin")]
+namespace FE.Areas.User.Controllers;
+[Area("User")]
 public class HomeController : Controller
 {
-    [HttpGet("/Admin")]
+    [HttpGet("/User")]
     public ActionResult Index()
         {
             if (HttpContext.Session.GetInt32("idUser") != null)

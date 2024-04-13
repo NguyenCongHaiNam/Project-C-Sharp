@@ -63,10 +63,12 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">@{
+                        <div class="small">
+                            @{
                                 var user = HttpContextAccessor.HttpContext.Session.GetString("FullName");
                             }
-                            Logged in as: @if (!string.IsNullOrEmpty(user))
+                            Logged in as:
+                            @if (!string.IsNullOrEmpty(user))
                                     {
                                         <div class="d-inline">@user</div>
                                     }
