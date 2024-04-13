@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 namespace FE.Areas.Admin.Controllers;
-using FE.Models;
-using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Net.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
-using System.Drawing.Printing;
-using System.Data.Entity.Validation;
+using Newtonsoft.Json;
 [Area("Admin")]
-public class HomeController : Controller
+public class HomeController : BaseController
 {
     private readonly HttpClient _httpClient;
+    public HomeController(){
+         _httpClient = new HttpClient();
+    }
     [HttpGet("/Admin/Index")]
     public ActionResult Index()
         {
@@ -28,8 +23,14 @@ public class HomeController : Controller
                 return Redirect("/Home/Login");
             }
         }
-        [HttpGet("/Admin/Classify")]
-public async Task<ActionResult> Classify(string url)
+        
+    [HttpGet("/Admin/Classify")]
+    public ActionResult Classify()
+    {
+        return View();
+    }
+    [HttpPost("/Admin/Classify")]
+    public async Task<ActionResult> Classify(string url)
     {
         // Địa chỉ URL của API
         string apiUrl = "http://127.0.0.1:5000/classify";
@@ -48,9 +49,11 @@ public async Task<ActionResult> Classify(string url)
                 // Đọc nội dung của phản hồi
                 string responseData = await response.Content.ReadAsStringAsync();
 
-                // Hiển thị dữ liệu phản hồi lên màn hình
-                ViewBag.ResponseData = responseData;
+                // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
+                string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
 
+                // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
+                ViewBag.ResponseData = formattedJson;
             }
             else
             {

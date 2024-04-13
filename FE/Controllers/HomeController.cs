@@ -106,15 +106,7 @@ namespace FE.Controllers
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
                     HttpContext.Session.SetInt32("idUser",data.FirstOrDefault().IdUser);
-                    if (HttpContext.Session.GetInt32("idUser") == 1)
-                    {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home", new { area = "User" });
-                    }
-                    
+                    return View("Home");             
                 }
                 else
                 {
@@ -146,46 +138,9 @@ namespace FE.Controllers
             }
             return byte2String.ToString();
         }
-     public async Task<ActionResult> Classify(string url)
-    {
-        // Địa chỉ URL của API
-        string apiUrl = "http://127.0.0.1:5000/classify";
-
-        try
+        public ActionResult About() 
         {
-            // Tạo đối tượng chứa dữ liệu JSON
-            var jsonContent = new StringContent("{\"url\": \"" + url + "\"}", Encoding.UTF8, "application/json");
-            Console.WriteLine(url);
-            // Gửi yêu cầu POST đến API
-            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
-
-            // Kiểm tra xem phản hồi có thành công không
-            if (response.IsSuccessStatusCode)
-            {
-                // Đọc nội dung của phản hồi
-                string responseData = await response.Content.ReadAsStringAsync();
-
-                // Hiển thị dữ liệu phản hồi lên màn hình
-                ViewBag.ResponseData = responseData;
-
-            }
-            else
-            {
-                // Xử lý trường hợp phản hồi không thành công
-                ViewBag.ResponseData = "Error: " + response.StatusCode;
-            }
+            return View();
         }
-        catch (Exception ex)
-        {
-            // Xử lý lỗi nếu có
-            ViewBag.ResponseData = "Error: " + ex.Message;
-        }
-
-        return View("Classify");
-    }
-    public ActionResult About() 
-    {
-        return View();
-    }
     }
 }
