@@ -7,7 +7,7 @@ namespace FE.Areas.User.Controllers;
 [Area("User")]
 public class HomeController : Controller
 {
-    [HttpGet("/User")]
+    [HttpGet("/User/Index")]
     public ActionResult Index()
         {
             if (HttpContext.Session.GetInt32("idUser") != null)

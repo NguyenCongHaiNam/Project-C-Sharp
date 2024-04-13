@@ -37,14 +37,14 @@
                             if (idUser.HasValue && idUser.Value == 1) // Admin
                             {
                                 area = "Admin";
-                                controller = "Dashboard";
+                                controller = "Home";
                                 action = "Index";
                             }
                             else // User
                             {
                                 area = "User";
                                 controller = "Home";
-                                action = "Dashboard";
+                                action = "Index";
                             }
                         }
                         <a class="nav-link text-dark" asp-area="@area" asp-controller="@controller" asp-action="@action">Dashboard</a>

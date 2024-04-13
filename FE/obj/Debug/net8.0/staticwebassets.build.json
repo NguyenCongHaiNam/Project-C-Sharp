@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nb/CTj82BV2k+SewPgZ7sX31qXSQPVlzQI6iv8vdnHQ=",
+  "Hash": "PzoL2IzcMLPYllSJEvFXVXwIVOn5J3F2KDRGEs3j0Mc=",
   "Source": "FE",
   "BasePath": "_content/FE",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\assets\\img\\error-404-monochrome.svg"
+    },
+    {
+      "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\assets\\img\\logo.svg",
+      "SourceId": "FE",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\",
+      "BasePath": "_content/FE",
+      "RelativePath": "Admin/assets/img/logo.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Admin\\assets\\img\\logo.svg"
     },
     {
       "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\css\\styles.css",

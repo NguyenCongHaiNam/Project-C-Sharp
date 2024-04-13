@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\Admin\\assets\\img\\error-404-monochrome.svg"
     },
     {
+      "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\assets\\img\\logo.svg",
+      "PackagePath": "staticwebassets\\Admin\\assets\\img\\logo.svg"
+    },
+    {
       "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\css\\styles.css",
       "PackagePath": "staticwebassets\\Admin\\css\\styles.css"
     },
