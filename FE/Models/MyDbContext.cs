@@ -23,6 +23,7 @@ namespace FE.Models
         public virtual DbSet<Raw> Raw { get; set; }
 
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Log> Log { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -112,10 +113,33 @@ namespace FE.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
+            modelBuilder.Entity<Log>(entity =>
+            {
+                entity.ToTable("Log"); // Đặt tên cho bảng là "Log"
+
+                entity.HasKey(e => e.logID).HasName("PK__Log__7839F62D023AD65F"); // Thiết lập khóa chính
+
+                entity.Property(e => e.logID).HasColumnName("logID").ValueGeneratedOnAdd(); // Thiết lập cột logID là khóa tự động tăng
+
+                entity.Property(e => e.idUser)
+                    .IsRequired()
+                    .HasColumnName("idUser"); // Thiết lập cột idUser và yêu cầu không được để trống
+
+                entity.Property(e => e.logContent)
+                    .HasColumnName("logContent"); // Thiết lập cột logContent
+
+                entity.Property(e => e.dateTime)
+                    .HasColumnName("dateTime")
+                    .HasMaxLength(20)
+                    .IsFixedLength(); // Thiết lập cột dateTime với độ dài tối đa là 20 và kiểu dữ liệu cố định
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
+
+    
 }

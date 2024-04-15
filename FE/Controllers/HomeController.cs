@@ -103,6 +103,14 @@ namespace FE.Controllers
                 Console.WriteLine(data.Count());
                 if (data.Count() > 0)
                 {
+                    var loginHistory = new Log
+                    {
+                        idUser = data.FirstOrDefault().IdUser,
+                        logContent = "Login success",
+                        dateTime = DateTime.Now
+                    };
+                    _db.Log.Add(loginHistory);
+                    _db.SaveChanges();
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
                     HttpContext.Session.SetInt32("idUser",data.FirstOrDefault().IdUser);

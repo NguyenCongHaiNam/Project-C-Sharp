@@ -69,9 +69,11 @@ public class HomeController : BaseController
 
         return View();
     }
-    public IActionResult Contact()
+    [HttpGet("/Admin/Logout")]
+    public ActionResult Logout()
     {
-        return View();
+        HttpContext.Session.Clear();
+        return Redirect("/Home/Home");
     }
     public IActionResult Error()
     {
