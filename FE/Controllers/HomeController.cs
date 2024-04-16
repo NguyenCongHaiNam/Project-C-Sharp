@@ -96,6 +96,10 @@ namespace FE.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
+            if (HttpContext.Session.GetInt32("idUser") != null)
+            {
+                return Redirect("/Home/Home");
+            }
             if (ModelState.IsValid)
             {
                 var f_password = GetMD5(password);
@@ -106,7 +110,7 @@ namespace FE.Controllers
                     var loginHistory = new Log
                     {
                         idUser = data.FirstOrDefault().IdUser,
-                        logContent = "Login success",
+                        logContent = "Login success with email: " + email,
                         dateTime = DateTime.Now
                     };
                     _db.Log.Add(loginHistory);
@@ -124,14 +128,7 @@ namespace FE.Controllers
             }
             TempData["error"] = "Input invalid";
             return View("Login");
-        }
-
-        // GET: User/Logout
-        public ActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
-        }
+        }     
 
         // Create MD5 hash
         public static string GetMD5(string str)
@@ -147,6 +144,10 @@ namespace FE.Controllers
             return byte2String.ToString();
         }
         public ActionResult About() 
+        {
+            return View();
+        }
+        public ActionResult Error401() 
         {
             return View();
         }

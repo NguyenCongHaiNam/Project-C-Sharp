@@ -18,12 +18,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\h1n4m\OneDrive\Desktop\ProjectC#\FE
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/Admin/Views/Home/Classify.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxDbGFzc2lmeS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/Admin/Views/Home/UserManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxVc2VyTWFuYWdlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/Admin/Views/Shared/_Layout.cshtml]
@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/Admin/Views/Shared/_LeftMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MZWZ0TWVudS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/User/Views/Home/Classify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXENsYXNzaWZ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Areas/User/Views/Home/Index.cshtml]
@@ -48,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Views/Home/Error401.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvcjQwMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/h1n4m/OneDrive/Desktop/ProjectC\#/FE/Views/Home/Home.cshtml]

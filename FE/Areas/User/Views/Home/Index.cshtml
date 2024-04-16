@@ -1,8 +1,20 @@
 @{
-    ViewBag.Title = "index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<main>
-                        <h1 class="mt-4">Dashboard</h1>
+<main class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-4">Dashboard</h1>
+            <p class="lead">Xin chào, người dùng!</p>
+            <p>Đây là dashboard của bạn. Dưới đây là một số chức năng và thông tin mà bạn có thể quan tâm:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#" class="link-primary">Xem danh sách các tài liệu</a></li>
+                <li class="list-group-item"><a href="#" class="link-primary">Thêm mới tài liệu</a></li>
+                <li class="list-group-item"><a href="#" class="link-primary">Cài đặt cá nhân</a></li>
+                <li class="list-group-item"><a href="#" class="link-primary">Liên hệ với chúng tôi</a></li>
+            </ul>
+        </div>
+    </div>
 </main>
