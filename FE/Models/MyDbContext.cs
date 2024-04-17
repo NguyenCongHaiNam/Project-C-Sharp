@@ -24,6 +24,7 @@ namespace FE.Models
 
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Log> Log { get; set; }
+        public virtual DbSet<VisitCount> VisitCount { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -133,6 +134,25 @@ namespace FE.Models
                     .HasMaxLength(20)
                     .IsFixedLength(); // Thiết lập cột dateTime với độ dài tối đa là 20 và kiểu dữ liệu cố định
             });
+
+            modelBuilder.Entity<VisitCount>(entity =>
+            {
+                entity.ToTable("VisitCount");
+
+                entity.HasKey(e => e.Id); 
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id") 
+                    .ValueGeneratedOnAdd(); 
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("Date") 
+                    .IsRequired(); 
+
+                entity.Property(e => e.Count)
+                    .HasColumnName("Count")
+                    .IsRequired(); 
+            });
+
 
 
             OnModelCreatingPartial(modelBuilder);

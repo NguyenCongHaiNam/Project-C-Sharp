@@ -114,6 +114,18 @@ namespace FE.Controllers
                         dateTime = DateTime.Now
                     };
                     _db.Log.Add(loginHistory);
+                    // Tăng số lượt truy cập
+                    var today = DateTime.Today;
+                    var visitCount = _db.VisitCount.FirstOrDefault(vc => vc.Date == today);
+                    if (visitCount == null)
+                    {
+                        visitCount = new VisitCount { Date = today, Count = 1 };
+                        _db.VisitCount.Add(visitCount);
+                    }
+                    else
+                    {
+                        visitCount.Count++;
+                    }
                     _db.SaveChanges();
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
