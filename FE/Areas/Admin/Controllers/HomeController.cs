@@ -50,10 +50,13 @@ public class HomeController : BaseController
     [HttpGet("/Admin/Chart")]
     public ActionResult Chart()
     {
-        // Truy vấn danh sách người dùng từ cơ sở dữ liệu
-        // var users = _db.Users.ToList();
+        var latestData = _db.VisitCount
+            .OrderByDescending(vc => vc.Date)
+            .Select(vc => new { Date = vc.Date, Count = vc.Count }) // Chỉ định cả hai cột Date và Count
+            .Take(10)
+            .ToList();
 
-        // Trả về view với danh sách người dùng
+        ViewBag.LatestDatas = latestData; // Sử dụng ViewBag để truyền biến latestDates vào view
         return View();
     }
     public IActionResult Error()

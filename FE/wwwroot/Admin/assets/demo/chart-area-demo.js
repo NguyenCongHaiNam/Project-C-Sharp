@@ -1,26 +1,35 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
+console.log(latestDatas);
 
-var labels = [];
 
-// Lặp qua 10 ngày gần nhất
-for (var i = 9; i >= 0; i--) {
-    // Tạo một đối tượng Date đại diện cho ngày hiện tại
-    var currentDate = new Date();
-    // Giảm ngày hiện tại đi i ngày để lấy ngày trước đó
-    currentDate.setDate(currentDate.getDate() - i);
-    // Lưu trữ ngày dưới dạng nhãn trong mảng
-    labels.push(currentDate.toLocaleDateString());
-}
+// Khởi tạo một mảng mới để lưu trữ ngày
+var dates = [];
+var count = [];
+
+// Lặp qua mỗi phần tử của mảng JavaScript và trích xuất ngày
+latestDatas.forEach(function(data) {
+    // Kiểm tra xem phần tử có chứa ngày không
+    if (data && data.date && data.count) {
+        // Thêm ngày vào mảng mới
+        dates.push(data.date);
+        count.push(data.count)
+    }
+});
+var maxCount = Math.max(...count);
+// Hiển thị mảng chứa các ngày
+console.log(dates);
+console.log(maxCount);
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: labels,
+    labels: dates,
     datasets: [{
-      label: "Sessions",
+      label: "Visitor Count",
       lineTension: 0.3,
       backgroundColor: "rgba(2,117,216,0.2)",
       borderColor: "rgba(2,117,216,1)",
@@ -31,7 +40,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(2,117,216,1)",
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+      data: count,
     }],
   },
   options: {
@@ -50,7 +59,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 40000,
+          max: maxCount,
           maxTicksLimit: 5
         },
         gridLines: {

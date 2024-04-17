@@ -26,5 +26,9 @@
         </div>
     </div>
 </main>
+<script>
+    // Sử dụng JavaScript để truy cập và sử dụng biến LatestDates từ ViewBag
+    var latestDatas = @Html.Raw(Json.Serialize(ViewBag.LatestDatas)); // Convert từ C# List sang JavaScript array
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="/Admin/assets/demo/chart-area-demo.js"></script>
