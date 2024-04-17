@@ -23,7 +23,8 @@ public class HomeController : BaseController
             var idUser = _httpContextAccessor.HttpContext.Session.GetInt32("idUser");
             if  (idUser.HasValue && idUser.Value == 1)
             {
-                return View();
+                var users = _db.Users.ToList();
+                return View(users);
             }
             else
             {
@@ -45,6 +46,15 @@ public class HomeController : BaseController
     {
         HttpContext.Session.Clear();
         return Redirect("/Home/Home");
+    }
+    [HttpGet("/Admin/Chart")]
+    public ActionResult Chart()
+    {
+        // Truy vấn danh sách người dùng từ cơ sở dữ liệu
+        // var users = _db.Users.ToList();
+
+        // Trả về view với danh sách người dùng
+        return View();
     }
     public IActionResult Error()
     {

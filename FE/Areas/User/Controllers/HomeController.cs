@@ -78,6 +78,19 @@ public class HomeController : BaseController
         HttpContext.Session.Clear();
         return Redirect("/Home/Home");
     }
+
+    [HttpGet("/User/Crawler")]
+    public ActionResult Crawler(){
+        return View();
+    }
+    [HttpGet("/User/CommentClassify")]
+    public ActionResult CommentClassify(){
+        return View();
+    }
+    [HttpGet("/User/DownloadVideo")]
+    public ActionResult DownloadVideo(){
+        return View();
+    }
     public IActionResult Error()
     {
         return View();
