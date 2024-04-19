@@ -24,6 +24,8 @@ public class HomeController : BaseController
             if  (idUser.HasValue && idUser.Value == 1)
             {
                 var users = _db.Users.ToList();
+                var json = GetChartData();
+                ViewBag.json = json;
                 return View(users);
             }
             else
@@ -50,15 +52,25 @@ public class HomeController : BaseController
     [HttpGet("/Admin/Chart")]
     public ActionResult Chart()
     {
-        var latestData = _db.VisitCount
-            .OrderByDescending(vc => vc.Date)
-            .Select(vc => new { Date = vc.Date, Count = vc.Count }) // Chỉ định cả hai cột Date và Count
-            .Take(10)
-            .ToList();
+        var json = GetChartData();
 
-        ViewBag.LatestDatas = latestData; // Sử dụng ViewBag để truyền biến latestDates vào view
+        ViewBag.json = json;
         return View();
     }
+    public string GetChartData()
+    {
+        var latestData = _db.VisitCount
+            .OrderByDescending(vc => vc.Date)
+            .Take(10)
+            .Select(vc => new { Date = vc.Date.ToString(), Count = vc.Count })
+            .ToList();
+
+        // Convert latestData to JSON string
+        var json = JsonConvert.SerializeObject(latestData);
+
+        return json;
+    }
+
     public IActionResult Error()
     {
         return View();

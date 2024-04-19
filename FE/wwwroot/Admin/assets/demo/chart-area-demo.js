@@ -11,10 +11,10 @@ var count = [];
 // Lặp qua mỗi phần tử của mảng JavaScript và trích xuất ngày
 latestDatas.forEach(function(data) {
     // Kiểm tra xem phần tử có chứa ngày không
-    if (data && data.date && data.count) {
+    if (data && data.Date && data.Count) {
         // Thêm ngày vào mảng mới
-        dates.push(data.date);
-        count.push(data.count)
+        dates.push(data.Date);
+        count.push(data.Count)
     }
 });
 var maxCount = Math.max(...count);

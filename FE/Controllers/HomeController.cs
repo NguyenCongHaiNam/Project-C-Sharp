@@ -141,7 +141,10 @@ namespace FE.Controllers
             TempData["error"] = "Input invalid";
             return View("Login");
         }     
-
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
         // Create MD5 hash
         public static string GetMD5(string str)
         {
