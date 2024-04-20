@@ -25,12 +25,13 @@ namespace FE.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<VisitCount> VisitCount { get; set; }
+        public virtual DbSet<ClassificationLog> ClassificationLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
                 {
-                    optionsBuilder.UseSqlServer("SERVER=H1N4M\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;");
+                    optionsBuilder.UseSqlServer("SERVER=103.65.235.222;DATABASE=NewsClassifier;UID=webapp;PWD=webapp123;");
                 }
         }
 
@@ -116,23 +117,23 @@ namespace FE.Models
             });
             modelBuilder.Entity<Log>(entity =>
             {
-                entity.ToTable("Log"); // Đặt tên cho bảng là "Log"
+                entity.ToTable("Log"); 
 
-                entity.HasKey(e => e.logID).HasName("PK__Log__7839F62D023AD65F"); // Thiết lập khóa chính
+                entity.HasKey(e => e.logID).HasName("PK__Log__7839F62D023AD65F"); 
 
-                entity.Property(e => e.logID).HasColumnName("logID").ValueGeneratedOnAdd(); // Thiết lập cột logID là khóa tự động tăng
+                entity.Property(e => e.logID).HasColumnName("logID").ValueGeneratedOnAdd(); 
 
                 entity.Property(e => e.idUser)
                     .IsRequired()
-                    .HasColumnName("idUser"); // Thiết lập cột idUser và yêu cầu không được để trống
+                    .HasColumnName("idUser"); 
 
                 entity.Property(e => e.logContent)
-                    .HasColumnName("logContent"); // Thiết lập cột logContent
+                    .HasColumnName("logContent"); 
 
                 entity.Property(e => e.dateTime)
                     .HasColumnName("dateTime")
                     .HasMaxLength(20)
-                    .IsFixedLength(); // Thiết lập cột dateTime với độ dài tối đa là 20 và kiểu dữ liệu cố định
+                    .IsFixedLength(); 
             });
 
             modelBuilder.Entity<VisitCount>(entity =>
@@ -152,7 +153,20 @@ namespace FE.Models
                     .HasColumnName("Count")
                     .IsRequired(); 
             });
+            modelBuilder.Entity<ClassificationLog>(entity =>
+            {
+                entity.ToTable("ClassificationLog");
 
+                entity.Property(e => e.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UserId).IsRequired().HasColumnName("UserId");
+
+                entity.Property(e => e.Time).IsRequired().HasColumnName("Time");
+
+                entity.Property(e => e.Url).IsRequired().HasColumnName("Url").HasMaxLength(1000);
+
+                entity.Property(e => e.ResponseData).IsRequired().HasColumnName("ResponseData").HasColumnType("nvarchar(MAX)");
+            });
 
 
             OnModelCreatingPartial(modelBuilder);

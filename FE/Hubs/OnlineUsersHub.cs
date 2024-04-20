@@ -5,16 +5,17 @@ public class OnlineUsersHub : Hub
 {
     private static int onlineUsersCount = 0;
 
-    public async Task UserLoggedIn()
+    public override async Task OnConnectedAsync()
     {
         onlineUsersCount++;
         await Clients.All.SendAsync("UpdateOnlineUsersCount", onlineUsersCount);
+        await base.OnConnectedAsync();
     }
 
-    public async Task UserLoggedOut()
+    public override async Task OnDisconnectedAsync(Exception exception)
     {
         onlineUsersCount--;
         await Clients.All.SendAsync("UpdateOnlineUsersCount", onlineUsersCount);
+        await base.OnDisconnectedAsync(exception);
     }
 }
-

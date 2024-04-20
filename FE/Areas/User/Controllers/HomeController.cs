@@ -1,20 +1,28 @@
+namespace FE.Areas.User.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-namespace FE.Areas.User.Controllers;
-
+using Microsoft.AspNetCore.SignalR;
+using FE.Models;
 using System.Text;
 using Newtonsoft.Json;
 
 [Area("User")]
 public class HomeController : BaseController
 {
-     private readonly HttpClient _httpClient;
-    public HomeController(){
-         _httpClient = new HttpClient();
+    private readonly IHubContext<OnlineUsersHub> _hubContext;
+    private readonly HttpClient _httpClient;
+    private readonly MyDbContext _db;
+
+    public HomeController(IHubContext<OnlineUsersHub> hubContext,MyDbContext dbContext)
+    {
+        _hubContext = hubContext;
+        _httpClient = new HttpClient();
+        _db = dbContext;
     }
+
     [HttpGet("/User/Index")]
     public ActionResult Index()
     {
@@ -54,7 +62,19 @@ public class HomeController : BaseController
 
                 // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
                 string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
+                var log = new ClassificationLog
+                {
+                    UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
+                    Time = DateTime.Now,
+                    Url = url,
+                    ResponseData = responseData
+                };
 
+                // Thêm log vào cơ sở dữ liệu
+                _db.ClassificationLogs.Add(log);
+
+                // Lưu thay đổi vào cơ sở dữ liệu
+                await _db.SaveChangesAsync();
                 // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
                 ViewBag.ResponseData = formattedJson;
             }
@@ -73,9 +93,10 @@ public class HomeController : BaseController
         return View();
     }
     [HttpGet("/User/Logout")]
-    public ActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
         HttpContext.Session.Clear();
+        await _hubContext.Clients.All.SendAsync("OnDisconnectedAsync");
         return Redirect("/Home/Home");
     }
 

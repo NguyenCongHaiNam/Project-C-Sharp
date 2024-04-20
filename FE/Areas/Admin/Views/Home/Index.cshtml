@@ -3,6 +3,9 @@
     ViewBag.Title = "index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@{
+    int totalUsers = Model.Users.Count;
+}
 
 <main>
                     <div class="container-fluid px-4">
@@ -12,39 +15,30 @@
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div id="onlineUsersCountCard" class="card bg-success text-white mb-4">
+                                    <div class="card-body">
+                                        <i class="fas fa-users"></i>
+                                        Online Users: <span id="onlineUsersCount"></span>
                                     </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between"></div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div id="totalUsersCard" class="card bg-warning text-white mb-4">
+                                    <div class="card-body">
+                                        <i class="fas fa-users"></i>
+                                        Total Users: <span id="totalUsers">@totalUsers</span>
                                     </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between"></div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div id="offlineUsersCard" class="card bg-danger text-white mb-4">
+                                    <div class="card-body">
+                                        <i class="fas fa-users"></i>
+                                        Offline Users: <span id="offlineUsers"></span>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between"></div>
                                 </div>
                             </div>
                         </div>
@@ -89,10 +83,9 @@
                 </main>
                 <script>
                     var latestDatas = @Html.Raw(ViewBag.json);
+                    var totalUsers = @Model.Users.Count;
                 </script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
                 <script src="/Admin/assets/demo/chart-area-demo.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
                 <script src="/Admin/js/datatables-simple-demo.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
-                <script src="/Admin/js/site.js"></script>

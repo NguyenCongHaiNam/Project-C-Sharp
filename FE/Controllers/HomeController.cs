@@ -18,11 +18,9 @@ namespace FE.Controllers
         public HomeController(IHubContext<OnlineUsersHub> hubContext)
         {
             _hubContext = hubContext;
+             _httpClient = new HttpClient();
         }
         private readonly HttpClient _httpClient;
-        public HomeController(){
-                _httpClient = new HttpClient();
-        }
             
         private readonly MyDbContext _db = new MyDbContext();
 
@@ -100,7 +98,7 @@ namespace FE.Controllers
         // POST: User/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
             if (HttpContext.Session.GetInt32("idUser") != null)
             {
@@ -135,6 +133,7 @@ namespace FE.Controllers
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
                     HttpContext.Session.SetInt32("idUser",data.FirstOrDefault().IdUser);
+                    await _hubContext.Clients.All.SendAsync("OnConnectedAsync");
                     return View("Home");             
                 }
                 else
