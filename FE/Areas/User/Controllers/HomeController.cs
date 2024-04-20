@@ -44,7 +44,7 @@ public class HomeController : BaseController
     public async Task<ActionResult> Classify(string url)
     {
         // Địa chỉ URL của API
-        string apiUrl = "http://127.0.0.1:5000/classify";
+        string apiUrl = "http://103.65.235.222:8080/classify";
 
         try
         {

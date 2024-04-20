@@ -1,3 +1,6 @@
+using FE.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,7 +13,8 @@ builder.Services.AddSession(options =>
 
 // Add SignalR service
 builder.Services.AddSignalR(); // Thêm dịch vụ SignalR vào container
-
+builder.Services.AddDbContext<MyDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
