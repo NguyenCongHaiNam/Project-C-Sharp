@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\Admin\\js\\scripts.js"
     },
     {
+      "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\js\\site.js",
+      "PackagePath": "staticwebassets\\Admin\\js\\site.js"
+    },
+    {
       "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

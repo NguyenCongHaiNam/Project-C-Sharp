@@ -17,16 +17,16 @@ public class HomeController : BaseController
     }
     [HttpGet("/User/Index")]
     public ActionResult Index()
+    {
+        if (HttpContext.Session.GetInt32("idUser") != null)
         {
-            if (HttpContext.Session.GetInt32("idUser") != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Home/Login");
-            }
+            return View();
         }
+        else
+        {
+            return Redirect("/Home/Login");
+        }
+    }
     [HttpGet("/User/Classify")]
     public ActionResult Classify()
     {
@@ -78,6 +78,7 @@ public class HomeController : BaseController
         HttpContext.Session.Clear();
         return Redirect("/Home/Home");
     }
+
 
     [HttpGet("/User/Crawler")]
     public ActionResult Crawler(){

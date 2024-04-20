@@ -7,16 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Drawing.Printing;
 using System.Data.Entity.Validation;
+using Microsoft.AspNetCore.SignalR;
 
 namespace FE.Controllers
 {
     public class HomeController : Controller
     {
-    private readonly HttpClient _httpClient;
-    public HomeController(){
-         _httpClient = new HttpClient();
-    }
-       
+        private readonly IHubContext<OnlineUsersHub> _hubContext;
+
+        public HomeController(IHubContext<OnlineUsersHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
+        private readonly HttpClient _httpClient;
+        public HomeController(){
+                _httpClient = new HttpClient();
+        }
+            
         private readonly MyDbContext _db = new MyDbContext();
 
         public ActionResult Index()
@@ -49,7 +56,6 @@ namespace FE.Controllers
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine(_user.Email + " " + _user.Password);
                 var check = _db.Users.FirstOrDefault(s => s.Email == _user.Email);
                 if (check == null)
                 {
@@ -104,7 +110,6 @@ namespace FE.Controllers
             {
                 var f_password = GetMD5(password);
                 var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
-                Console.WriteLine(data.Count());
                 if (data.Count() > 0)
                 {
                     var loginHistory = new Log

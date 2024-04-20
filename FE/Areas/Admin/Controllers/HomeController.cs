@@ -5,7 +5,7 @@ using System.Net.Http;
 using FE.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-
+using FE.Areas.Admin.Models;
 
 [Area("Admin")]
 public class HomeController : BaseController
@@ -17,6 +17,9 @@ public class HomeController : BaseController
         _httpContextAccessor = httpContextAccessor;
     }
     private readonly MyDbContext _db = new MyDbContext();
+
+
+
     [HttpGet("/Admin/Index")]
     public ActionResult Index()
         {
@@ -25,8 +28,13 @@ public class HomeController : BaseController
             {
                 var users = _db.Users.ToList();
                 var json = GetChartData();
+
+                var viewModel = new VariableViewModel
+                {
+                    Users = users,
+                };
                 ViewBag.json = json;
-                return View(users);
+                return View(viewModel);
             }
             else
             {

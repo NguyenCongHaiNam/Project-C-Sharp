@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3U6lJg/VrfDXeE4GFsIFsLehXHaOJD2davkrM0d7s+o=",
+  "Hash": "6cLmNXomxSaaglDX09f/TLBYMG+f0BzymcDyGvCGBjc=",
   "Source": "FE",
   "BasePath": "_content/FE",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\js\\scripts.js"
+    },
+    {
+      "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\Admin\\js\\site.js",
+      "SourceId": "FE",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\",
+      "BasePath": "_content/FE",
+      "RelativePath": "Admin/js/site.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Admin\\js\\site.js"
     },
     {
       "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\wwwroot\\css\\site.css",

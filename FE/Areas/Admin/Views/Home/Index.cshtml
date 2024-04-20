@@ -1,3 +1,4 @@
+@model FE.Areas.Admin.Models.VariableViewModel
 @{
     ViewBag.Title = "index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -71,7 +72,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var user in Model)
+                        @foreach (var user in Model.Users)
                         {
                             <tr>
                                 <td>@user.IdUser</td>
@@ -93,3 +94,5 @@
                 <script src="/Admin/assets/demo/chart-area-demo.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
                 <script src="/Admin/js/datatables-simple-demo.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+                <script src="/Admin/js/site.js"></script>

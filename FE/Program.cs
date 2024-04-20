@@ -8,6 +8,9 @@ builder.Services.AddSession(options =>
         options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
     });
 
+// Add SignalR service
+builder.Services.AddSignalR(); // Thêm dịch vụ SignalR vào container
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,4 +38,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");
 
+app.MapHub<OnlineUsersHub>("/onlineUsersHub"); // Register SignalR hub as a top-level route
+
+    
 app.Run();
