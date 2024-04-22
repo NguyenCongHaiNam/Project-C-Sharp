@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\img\\mvc.png"
     },
     {
+      "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\js\\noti.js",
+      "PackagePath": "staticwebassets\\js\\noti.js"
+    },
+    {
       "Id": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

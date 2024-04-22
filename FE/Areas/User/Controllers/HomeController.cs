@@ -113,6 +113,15 @@ public class HomeController : BaseController
     public ActionResult DownloadVideo(){
         return View();
     }
+    [HttpGet("/User/ActivityLog")]
+    public IActionResult ActivityLog()
+    {
+        int userId = HttpContext.Session.GetInt32("idUser") ?? 0;
+        var userLogs = _db.ClassificationLogs.Where(log => log.UserId == userId).ToList();
+        ViewBag.UserLogs = userLogs;
+        return View();
+    }
+
     public IActionResult Error()
     {
         return View();

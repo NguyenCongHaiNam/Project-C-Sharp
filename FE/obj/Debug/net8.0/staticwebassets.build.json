@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uX6dzkpD3yVdfZgU/jfmV0O7fl+fYIMju4fKYHTdAYE=",
+  "Hash": "niB50wtAyjoOA9zVOXAYpW6nvr69PMLuCAEgvhn6aVo=",
   "Source": "FE",
   "BasePath": "_content/FE",
   "Mode": "Default",
@@ -300,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\mvc.png"
+    },
+    {
+      "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\js\\noti.js",
+      "SourceId": "FE",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\",
+      "BasePath": "_content/FE",
+      "RelativePath": "js/noti.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\noti.js"
     },
     {
       "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\js\\site.js",
