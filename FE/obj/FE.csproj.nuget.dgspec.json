@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\FE.csproj": {}
+    "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\FE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\FE.csproj": {
+    "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\FE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\FE.csproj",
+        "projectUniqueName": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\FE.csproj",
         "projectName": "FE",
-        "projectPath": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\FE.csproj",
+        "projectPath": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\FE.csproj",
         "packagesPath": "C:\\Users\\h1n4m\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\ProjectC#\\FE\\obj\\",
+        "outputPath": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\h1n4m\\AppData\\Roaming\\NuGet\\NuGet.Config"

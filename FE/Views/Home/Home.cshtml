@@ -1,19 +1,61 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<link href="/css/home.css" rel="stylesheet" />
 <main>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center mt-5">
-                <h1 class="display-4">Welcome</h1>
-                <p class="lead">Trang chu nguoi dung.</a>.</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="text-center mt-5">
+                    <h1 class="display-4">Welcome to News Classifier</h1>
+                    <p class="lead">We provide services for detecting online articles containing anti-government content. Additionally, we offer various features including data crawling from articles, YouTube comments, automatic responses to negative comments, and more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Our Technologies</h2>
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Machine Learning - Naive Bayes Model</h5>
+                        <p class="card-text">We utilize advanced machine learning algorithms, specifically the Naive Bayes model, to analyze and classify online articles, comments, and other text-based data.</p>
+                    </div>
+                </div>
+                <div class="card shadow-lg mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Web Crawling</h5>
+                        <p class="card-text">Our web crawling technology enables us to collect data from various online sources, including news websites and social media platforms.</p>
+                    </div>
+                </div>
+                <div class="card shadow-lg mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Natural Language Processing (NLP)</h5>
+                        <p class="card-text">Using NLP techniques, we process and understand the semantic meaning of text, allowing us to detect nuanced patterns and sentiments.</p>
+                    </div>
+                </div>
+                <div class="card shadow-lg mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Backend Technologies</h5>
+                        <p class="card-text">Our main functionalities are implemented by calling APIs on the backend, which are written in C#. </p>
+                    </div>
+                </div>
+                <div class="card shadow-lg mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Frontend Technologies</h5>
+                        <p class="card-text"> We utilize Bootstrap 5 for frontend design.</p>
+                    </div>
+                </div>
+                <div class="card shadow-lg mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Database Technologies</h5>
+                        <p class="card-text">Our database is powered by Microsoft SQL Server, hosted on a dedicated server. Additionally, user activities are logged to provide a history of their interactions.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
 </main>
-
 
 <style>
     .or-divider {
@@ -32,3 +74,30 @@
         window.location.href = '/Home/Register';
     }
 </script>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">MVC Architecture</h2>
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <p class="card-text">MVC (Model-View-Controller) is an architectural pattern commonly used in web development. It separates an application into three main components:</p>
+                <div class="text-center">
+                    <img id="mvc-image" class="sliding-image" alt="MVC Architecture" width="400" height="200">
+                </div>
+                <p class="card-text mt-3">This separation of concerns allows for better organization, maintainability, and testability of the codebase.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var images = ["/img/mvc.png", "/img/mvc-api.png"];
+    var currentIndex = 0;
+    function changeImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        document.getElementById("mvc-image").src = images[currentIndex];
+    }
+    setInterval(changeImage, 2000);
+</script>
+
+
+
