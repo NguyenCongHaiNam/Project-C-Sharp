@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "niB50wtAyjoOA9zVOXAYpW6nvr69PMLuCAEgvhn6aVo=",
+  "Hash": "/pJBa0OjhMdKRXZ5aFDLDJtpwG+AIWH/y9sp6ULFp7U=",
   "Source": "FE",
   "BasePath": "_content/FE",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\assets\\demo\\chart-area-demo.js"
+    },
+    {
+      "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\Admin\\assets\\demo\\chart-pie-demo.js",
+      "SourceId": "FE",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\",
+      "BasePath": "_content/FE",
+      "RelativePath": "Admin/assets/demo/chart-pie-demo.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Admin\\assets\\demo\\chart-pie-demo.js"
     },
     {
       "Identity": "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\wwwroot\\Admin\\assets\\demo\\datatables-demo.js",

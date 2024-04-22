@@ -28,6 +28,8 @@ public class HomeController : BaseController
     {
         if (HttpContext.Session.GetInt32("idUser") != null)
         {
+            var json = GetChartData();
+            ViewBag.json = json;
             return View();
         }
         else
@@ -121,9 +123,24 @@ public class HomeController : BaseController
         ViewBag.UserLogs = userLogs;
         return View();
     }
-
+    [HttpGet("/User/Setting")]
+    public ActionResult Setting(){
+        return View();
+    }
     public IActionResult Error()
     {
         return View();
     }
+    public string GetChartData()
+    {
+        var responseDataList = _db.ClassificationLogs
+            .OrderByDescending(log => log.Time)
+            .Select(log => log.ResponseData)
+            .ToList();
+
+        // Convert responseDataList to JSON string
+        var json = JsonConvert.SerializeObject(responseDataList);
+        return json;
+    }
+
 }

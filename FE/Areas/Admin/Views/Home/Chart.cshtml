@@ -28,6 +28,7 @@
 </main>
 <script>
     var latestDatas = @Html.Raw(ViewBag.json);
+    var latestDatas = Json.Encode(latestDatas);
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="/Admin/assets/demo/chart-area-demo.js"></script>

@@ -10,8 +10,6 @@ connection.start().then(function () {
 });
 
 connection.on("UpdateOnlineUsersCount", function (onlineUsersCount) {
-    console.log("Online users count: " + onlineUsersCount);
     document.getElementById("offlineUsers").innerText = totalUsers - onlineUsersCount;
-    // Cập nhật giá trị của onlineUsersCount vào phần tử HTML tương ứng
     document.getElementById("onlineUsersCount").innerText = onlineUsersCount;
 });
