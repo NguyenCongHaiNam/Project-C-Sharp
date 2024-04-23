@@ -12,21 +12,18 @@
         
         @using (Html.BeginForm("Classify", "Home", FormMethod.Post))
         {
-            <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form id="classificationForm" action="@Url.Action("Classify", "Home")" method="post" style="margin-top: 100px;">
-                <div class="input-group mb-3">
-                    <input type="text" id="urlInput" name="url" class="form-control" placeholder="Enter URL..." required style="border-radius: 50;">
-                    <button type="submit" class="btn btn-primary" style="border-radius: 50;">Classify</button>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form id="classificationForm" action="@Url.Action("Classify", "Home")" method="post" style="margin-top: 100px;">
+                        <div class="input-group mb-3">
+                            <input type="text" id="urlInput" name="url" class="form-control" placeholder="Enter URL..." required style="border-radius: 50;">
+                            <button type="submit" class="btn btn-primary" style="border-radius: 50;">Classify</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
-
-
-
         }
         
         @if (ViewBag.ResponseData != null)

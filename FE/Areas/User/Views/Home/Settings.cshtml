@@ -1,0 +1,78 @@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model FE.Models.Users
+
+
+@{
+    ViewBag.Title = "Youtube Comment Classify";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right"></div> <!-- Để căn chỉnh form ra giữa -->
+            <div class="col-md-6 border-right"> <!-- Sửa class này thành col-md-6 -->
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">@{
+                                var user = HttpContextAccessor.HttpContext.Session.GetString("FullName");
+                            }
+                            @user
+                                   </span>
+                <span class="text-black-50">@{
+                                var email = HttpContextAccessor.HttpContext.Session.GetString("Email");
+                            }
+                            @email</span>
+                </div>
+                @using (Html.BeginForm("Settings", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+ 
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Profile Settings</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName)
+                        @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control", @placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName)
+                        @Html.TextBoxFor(m => m.LastName, "", new { @class = "form-control", @placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "badge badge-danger" })
+                       
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-primary" value="Register"/>
+                    </div>
+                </div>
+            </div>
+                }
+
+            </div>
+            <div class="col-md-3 border-right"></div> <!-- Để căn chỉnh form ra giữa -->
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+<script src="/Admin/js/site.js"></script>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}

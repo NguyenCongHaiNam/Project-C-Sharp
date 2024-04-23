@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 using FE.Models;
 using System.Text;
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 [Area("User")]
 public class HomeController : BaseController
@@ -123,14 +124,55 @@ public class HomeController : BaseController
         ViewBag.UserLogs = userLogs;
         return View();
     }
-    [HttpGet("/User/Setting")]
-    public ActionResult Setting(){
+    [HttpGet("/User/Settings")]
+    public ActionResult Settings(){
         return View();
     }
     public IActionResult Error()
     {
         return View();
     }
+    [HttpPost("/User/Settings")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Settings(Users model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    int userId = HttpContext.Session.GetInt32("idUser") ?? 0;
+                    var user = _db.Users.FirstOrDefault(s => s.IdUser == userId);
+                    if (user != null)
+                    {
+                        user.FirstName = model.FirstName;
+                        user.LastName = model.LastName;
+                        user.Email = model.Email;
+
+                        // Nếu bạn cần xử lý mật khẩu, bạn có thể thực hiện các thay đổi ở đây
+
+                        await _db.SaveChangesAsync();
+                        TempData["success"] = "User information updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["error"] = "User not found.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["error"] = $"An error occurred while updating user information: {ex.Message}";
+                }
+            }
+            else
+            {
+                TempData["error"] = "Invalid model data.";
+            }
+
+            return RedirectToAction("Settings"); // Chuyển hướng đến trang chính hoặc trang thông báo khác
+        }
+
+
+
     public string GetChartData()
     {
         var responseDataList = _db.ClassificationLogs
