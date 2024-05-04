@@ -1,3 +1,5 @@
+@using Newtonsoft.Json
+
 @{
     ViewBag.Title = "Classify";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
@@ -12,42 +14,65 @@
         
         @using (Html.BeginForm("Classify", "Home", FormMethod.Post))
         {
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form id="classificationForm" action="@Url.Action("Classify", "Home")" method="post" style="margin-top: 100px;">
-                        <div class="input-group mb-3">
-                            <input type="text" id="urlInput" name="url" class="form-control" placeholder="Enter URL..." required style="border-radius: 50;">
-                            <button type="submit" class="btn btn-primary" style="border-radius: 50;">Classify</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        }
-        
-        @if (ViewBag.ResponseData != null)
-        {
-            <div class="mt-4">
-                <h3>Classification Result:</h3>
-                <div class="card">
-                    <div class="card-body" id="responseData">
-                        <pre>@Html.Raw(ViewBag.ResponseData)</pre>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form id="classificationForm" action="@Url.Action("Classify", "Home")" method="post" style="margin-top: 100px;">
+                            <div class="input-group mb-3">
+                                <input type="text" id="urlInput" name="url" class="form-control" placeholder="Enter URL..." required style="border-radius: 50;">
+                                <button type="submit" class="btn btn-primary" style="border-radius: 50;">Classify</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         }
+        
+        @if (ViewBag.ResponseData != null)
+        {
+            var cluster = ViewBag.ResponseData;
+            dynamic clusterJson = JsonConvert.DeserializeObject(cluster);
+                <div class="mt-4">
+                    <h3>aaaaaaaa</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Detect</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                            @{
+                                                string url = clusterJson["data"]["url"];
+                                                string title = clusterJson["data"]["title"];
+                                                string published_date = clusterJson["data"]["published_date"];
+                                                string top_img = clusterJson["data"]["top_img"];
+                                                string predicted_label = clusterJson["data"]["predicted_label"];
+                                            }
+                                            <td><a href="@url">@title</a></td>
+                                            <td><img src="@top_img" style="width:50%;height:50%;"></td>
+                                            <td>@published_date</td>
+                                            <td style="font-weight: bold; color: @(predicted_label == "Danger news" ? "red" : "green")">@predicted_label</td>
+                                        </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        }
     </div>
 </main>
 
-<script>
-    var responseData = @Html.Raw(ViewBag.ResponseData);
-    if (responseData && responseData["predicted_label"] == "Danger news") {
-        document.getElementById('responseData').classList.add('bg-danger');
-    }else{
-        document.getElementById('responseData').classList.add('bg-success');
-    }
-</script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
 <script src="/Admin/js/site.js"></script>
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}

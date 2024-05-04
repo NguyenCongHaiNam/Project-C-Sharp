@@ -40,6 +40,10 @@
                                     @{
                                         dynamic responseData = JsonConvert.DeserializeObject(log.ResponseData);
                                         string specificField = responseData["predicted_label"];
+                                        if (specificField == null)
+                                        {
+                                            specificField = responseData["data"]["predicted_label"];
+                                        }
                                     }
                                     @specificField
                                 </td>

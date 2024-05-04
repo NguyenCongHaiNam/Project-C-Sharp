@@ -1,0 +1,55 @@
+@using Newtonsoft.Json.Linq
+@{
+    ViewBag.Title = "News Crawler";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Tóm tắt tin tức</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/User/Index">Dashboard</a></li>
+            <li class="breadcrumb-item active">Tóm tắt tin tức</li>
+        </ol>
+        
+        <form id="summarizeForm" action="/User/Summarize" method="post" style="margin-top: 15px;">
+            <div class="input-group mb-3">
+                <textarea class="form-control" name="text" placeholder="Nhập bài báo cần tóm tắt..." rows="10" style="border-radius: 50;">{{ pre_data }}</textarea>
+            </div>
+
+            <div class="input-group mb-3">
+                <select name="numSentences" class="form-select" aria-label="Default select example">
+                    <option selected>Select length:</option>
+                    <option value="1" selected>1 sentence</option>
+                    <option value="5">5 sentences</option>
+                    <option value="10">10 sentences</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="border-radius: 50;">Tóm tắt</button>
+        </form>
+    
+        <div class="mt-4">
+            @if (ViewBag.ResponseData != null)
+            {
+                var responseData = JObject.Parse(ViewBag.ResponseData);
+                var summary = responseData["summary"];
+                if (summary != null)
+                {
+                    <div class="card">
+                        <div class="card-body" id="responseResponseData">
+                            @Html.Raw(summary)
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+<script src="/Admin/js/site.js"></script>
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}

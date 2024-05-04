@@ -47,7 +47,7 @@ public class HomeController : BaseController
     public async Task<ActionResult> Classify(string url)
     {
         // Địa chỉ URL của API
-        string apiUrl = "http://103.65.235.222:8080/classify";
+        string apiUrl = "http://127.0.0.1:5001/api/detectnews";
 
         try
         {
@@ -56,13 +56,11 @@ public class HomeController : BaseController
             Console.WriteLine(url);
             // Gửi yêu cầu POST đến API
             HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
-
             // Kiểm tra xem phản hồi có thành công không
             if (response.IsSuccessStatusCode)
             {
                 // Đọc nội dung của phản hồi
                 string responseData = await response.Content.ReadAsStringAsync();
-
                 // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
                 string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
                 var log = new ClassificationLog
@@ -72,10 +70,8 @@ public class HomeController : BaseController
                     Url = url,
                     ResponseData = responseData
                 };
-
                 // Thêm log vào cơ sở dữ liệu
                 _db.ClassificationLogs.Add(log);
-
                 // Lưu thay đổi vào cơ sở dữ liệu
                 await _db.SaveChangesAsync();
                 // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
@@ -84,17 +80,64 @@ public class HomeController : BaseController
             else
             {
                 // Xử lý trường hợp phản hồi không thành công
-                ViewBag.ResponseData = "Error: " + response.StatusCode;
+                TempData["error"] = "Fail to detect";
             }
         }
         catch (Exception ex)
         {
             // Xử lý lỗi nếu có
-            ViewBag.ResponseData = "Error: " + ex.Message;
+            TempData["error"] =  ex.Message;
         }
 
         return View();
     }
+    [HttpGet("/User/Summarize")]
+    public ActionResult Summarize()
+    {
+        return View();
+    }
+    [HttpPost("/User/Summarize")]
+    public async Task<ActionResult> Summarize(string text, int numSentences)
+    {
+        // Địa chỉ URL của API
+        string apiUrl = "http://127.0.0.1:5001/api/summerize";
+
+        try
+        {
+            var postData = new
+            {
+                text = text,
+                num_sentences = numSentences
+            };
+            // Tạo đối tượng chứa dữ liệu JSON
+            var jsonContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(postData), Encoding.UTF8, "application/json");
+            // Gửi yêu cầu POST đến API
+            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
+            // Kiểm tra xem phản hồi có thành công không
+            if (response.IsSuccessStatusCode)
+            {
+                // Đọc nội dung của phản hồi
+                string responseData = await response.Content.ReadAsStringAsync();
+                string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
+
+                // Hiển thị dữ liệu phản hồi trong ViewBag
+                ViewBag.ResponseData = formattedJson;
+            }
+            else
+            {
+                // Xử lý trường hợp phản hồi không thành công
+                TempData["error"] = "Fail to summarize";
+            }
+        }
+        catch (Exception ex)
+        {
+            // Xử lý lỗi nếu có
+            TempData["error"] = ex.Message;
+        }
+
+        return View();
+    }
+
     [HttpGet("/User/Logout")]
     public async Task<IActionResult> Logout()
     {
