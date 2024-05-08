@@ -32,6 +32,7 @@ namespace FE.Models
             if (!optionsBuilder.IsConfigured)
                 {
                     optionsBuilder.UseSqlServer("SERVER=103.65.235.222;DATABASE=NewsClassifier;UID=webapp;PWD=webapp123;");
+                    // optionsBuilder.UseSqlServer("SERVER=h1n4m\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;");
                 }
         }
 

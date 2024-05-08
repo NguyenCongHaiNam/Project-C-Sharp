@@ -33,7 +33,7 @@
             var cluster = ViewBag.ResponseData;
             dynamic clusterJson = JsonConvert.DeserializeObject(cluster);
                 <div class="mt-4">
-                    <h3>aaaaaaaa</h3>
+                    <h3>Result of detect:</h3>
                     <div class="card">
                         <div class="card-body">
                             <table class="table">
@@ -42,6 +42,7 @@
                                         <th scope="col">Title</th>
                                         <th scope="col">Image</th>
                                         <th scope="col">Time</th>
+                                        <th scope="col">Summary</th>
                                         <th scope="col">Detect</th>
                                     </tr>
                                 </thead>
@@ -53,11 +54,13 @@
                                                 string title = clusterJson["data"]["title"];
                                                 string published_date = clusterJson["data"]["published_date"];
                                                 string top_img = clusterJson["data"]["top_img"];
+                                                string summarize = clusterJson["data"]["summerize"];
                                                 string predicted_label = clusterJson["data"]["predicted_label"];
                                             }
                                             <td><a href="@url">@title</a></td>
                                             <td><img src="@top_img" style="width:50%;height:50%;"></td>
                                             <td>@published_date</td>
+                                            <td>@summarize</td>
                                             <td style="font-weight: bold; color: @(predicted_label == "Danger news" ? "red" : "green")">@predicted_label</td>
                                         </tr>
 
