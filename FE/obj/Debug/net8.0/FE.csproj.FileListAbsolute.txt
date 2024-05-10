@@ -290,3 +290,4 @@ C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\FE\obj\Debug\net8.0\refint\FE.dll
 C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\FE\obj\Debug\net8.0\FE.pdb
 C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\FE\obj\Debug\net8.0\FE.genruntimeconfig.cache
 C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\FE\obj\Debug\net8.0\ref\FE.dll
+C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\FE\bin\Debug\net8.0\blacklist.json

@@ -1,26 +1,19 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class ClassificationLog
+public class NewsDetected
 {
     [Key]
     public int Id { get; set; }
 
     [Required]
-    public int UserId { get; set; }
-
-    [Required]
-    public DateTime Time { get; set; }
-
-    [Required]
-    [StringLength(1000)] 
+    [StringLength(50)]
     public string Url { get; set; }
 
     [Required]
-    [Column(TypeName = "nvarchar(MAX)")] 
+    [Column(TypeName = "nvarchar(MAX)")]
     public string ResponseData { get; set; }
 
-    [Column(TypeName = "nvarchar(MAX)")]
+    [StringLength(100)]
     public string NegativeWords { get; set; }
 }

@@ -44,6 +44,7 @@
                                         <th scope="col">Time</th>
                                         <th scope="col">Summary</th>
                                         <th scope="col">Detect</th>
+                                        <th scope="col">Negative Word</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,8 +61,15 @@
                                             <td><a href="@url">@title</a></td>
                                             <td><img src="@top_img" style="width:50%;height:50%;"></td>
                                             <td>@published_date</td>
-                                            <td>@summarize</td>
+                                            <td>@(summarize.Length > 200 ? summarize.Substring(0, 200) + "..." : summarize)</td>
                                             <td style="font-weight: bold; color: @(predicted_label == "Danger news" ? "red" : "green")">@predicted_label</td>
+                                            <td>@if(ViewBag.FoundWords != null){
+                                                var found = ViewBag.FoundWords;
+                                                foreach (var word in found)
+                                                {
+                                                    <div>@word,</div>
+                                                }
+                                            }...</td>
                                         </tr>
 
                                 </tbody>
@@ -70,7 +78,7 @@
                     </div>
                 </div>
         }
-    </div>
+    </div> 
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>

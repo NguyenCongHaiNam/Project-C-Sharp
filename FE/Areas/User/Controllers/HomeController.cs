@@ -1,5 +1,6 @@
 namespace FE.Areas.User.Controllers;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +9,14 @@ using Microsoft.AspNetCore.SignalR;
 using FE.Models;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Data.Entity;
+using System.Text.RegularExpressions;
+
 
 [Area("User")]
 public class HomeController : BaseController
-{
+{ 
     private readonly IHubContext<OnlineUsersHub> _hubContext;
     private readonly HttpClient _httpClient;
     private readonly MyDbContext _db;
@@ -48,7 +52,12 @@ public class HomeController : BaseController
     {
         // Địa chỉ URL của API
         string apiUrl = "http://127.0.0.1:5001/api/detectnews";
+        string blacklistJson = System.IO.File.ReadAllText("C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\FE\\blacklist.json");
+        JObject jsonObject = JObject.Parse(blacklistJson);
+        JArray blacklistArray = (JArray)jsonObject["included_phrases"];
 
+        // Convert JArray thành List<string>
+        List<string> blacklist = blacklistArray.ToObject<List<string>>();
         try
         {
             // Tạo đối tượng chứa dữ liệu JSON
@@ -63,12 +72,29 @@ public class HomeController : BaseController
                 string responseData = await response.Content.ReadAsStringAsync();
                 // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
                 string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
+                JObject responseDataObject = JObject.Parse(responseData);
+                string content = responseDataObject["data"]["content"].ToString();
+                List<string> foundWords = new List<string>();
+                foreach (string word in blacklist)
+                {
+                    string pattern = "\\b" + Regex.Escape(word) + "\\b";
+
+                    // Tìm kiếm các từ trong nội dung sử dụng biểu thức chính quy
+                    MatchCollection matches = Regex.Matches(content, pattern, RegexOptions.IgnoreCase);
+
+                    // Kiểm tra xem có từ nào được tìm thấy hay không
+                    if (matches.Count > 0)
+                    {
+                        foundWords.Add(word);
+                    }
+                }
                 var log = new ClassificationLog
                 {
                     UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
                     Time = DateTime.Now,
                     Url = url,
-                    ResponseData = responseData
+                    ResponseData = responseData,
+                    NegativeWords = JsonConvert.SerializeObject(foundWords)
                 };
                 // Thêm log vào cơ sở dữ liệu
                 _db.ClassificationLogs.Add(log);
@@ -76,6 +102,7 @@ public class HomeController : BaseController
                 await _db.SaveChangesAsync();
                 // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
                 ViewBag.ResponseData = formattedJson;
+                ViewBag.FoundWords = foundWords;
             }
             else
             {
