@@ -26,13 +26,14 @@ namespace FE.Models
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<VisitCount> VisitCount { get; set; }
         public virtual DbSet<ClassificationLog> ClassificationLogs { get; set; }
+        public virtual DbSet<NewsDetected> NewsDetecteds { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
                 {
-                    optionsBuilder.UseSqlServer("SERVER=103.65.235.222;DATABASE=NewsClassifier;UID=webapp;PWD=webapp123;");
-                    // optionsBuilder.UseSqlServer("SERVER=h1n4m\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;");
+                    // optionsBuilder.UseSqlServer("SERVER=103.65.235.222;DATABASE=NewsClassifier;UID=webapp;PWD=webapp123;");
+                    optionsBuilder.UseSqlServer("SERVER=h1n4m\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;");
                 }
         }
 
@@ -168,6 +169,20 @@ namespace FE.Models
 
                 entity.Property(e => e.ResponseData).IsRequired().HasColumnName("ResponseData").HasColumnType("nvarchar(MAX)");
             });
+
+            modelBuilder.Entity<NewsDetected>(entity =>
+            {
+                entity.ToTable("NewsDetected");
+
+                entity.Property(e => e.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Url).IsRequired().HasColumnName("Url").HasMaxLength(255);
+
+                entity.Property(e => e.ResponseData).IsRequired().HasColumnName("ResponseData").HasColumnType("nvarchar(MAX)");
+
+                entity.Property(e => e.NegativeWords).HasColumnName("NegativeWords").HasColumnType("nvarchar(100)");
+            });
+
 
 
             OnModelCreatingPartial(modelBuilder);

@@ -12,7 +12,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
-
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 [Area("User")]
 public class HomeController : BaseController
@@ -60,54 +61,87 @@ public class HomeController : BaseController
         List<string> blacklist = blacklistArray.ToObject<List<string>>();
         try
         {
-            // Tạo đối tượng chứa dữ liệu JSON
-            var jsonContent = new StringContent("{\"url\": \"" + url + "\"}", Encoding.UTF8, "application/json");
-            Console.WriteLine(url);
-            // Gửi yêu cầu POST đến API
-            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
-            // Kiểm tra xem phản hồi có thành công không
-            if (response.IsSuccessStatusCode)
+            using (var connection = new SqlConnection("SERVER=h1n4m\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;"))
             {
-                // Đọc nội dung của phản hồi
-                string responseData = await response.Content.ReadAsStringAsync();
-                // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
-                string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
-                JObject responseDataObject = JObject.Parse(responseData);
-                string content = responseDataObject["data"]["content"].ToString();
-                List<string> foundWords = new List<string>();
-                foreach (string word in blacklist)
+                await connection.OpenAsync();
+
+                var commandText = "SELECT COUNT(*) FROM NewsDetected WHERE Url = @Url";
+                Console.WriteLine(commandText);
+                using (var command = new SqlCommand(commandText, connection))
                 {
-                    string pattern = "\\b" + Regex.Escape(word) + "\\b";
+                    command.Parameters.AddWithValue("@Url", url);
 
-                    // Tìm kiếm các từ trong nội dung sử dụng biểu thức chính quy
-                    MatchCollection matches = Regex.Matches(content, pattern, RegexOptions.IgnoreCase);
-
-                    // Kiểm tra xem có từ nào được tìm thấy hay không
-                    if (matches.Count > 0)
+                    var result = await command.ExecuteScalarAsync();
+                    Console.WriteLine(result);
+                    int count = Convert.ToInt32(result);
+                    if (count > 0)
                     {
-                        foundWords.Add(word);
+                        var newsDetected = _db.NewsDetecteds.FirstOrDefault(response => response.Url == url);
+                        if (newsDetected != null)
+                        {
+                            ViewBag.ResponseData = newsDetected.ResponseData;
+                            ViewBag.FoundWords = newsDetected.NegativeWords;
+                        }
+                    }
+                    else
+                    {
+                        // Tạo đối tượng chứa dữ liệu JSON
+                        var jsonContent = new StringContent("{\"url\": \"" + url + "\"}", Encoding.UTF8, "application/json");
+                        // Gửi yêu cầu POST đến API
+                        HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
+                        // Kiểm tra xem phản hồi có thành công không
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Đọc nội dung của phản hồi
+                            string responseData = await response.Content.ReadAsStringAsync();
+                            // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
+                            string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
+                            JObject responseDataObject = JObject.Parse(responseData);
+                            string content = responseDataObject["data"]["content"].ToString();
+                            List<string> foundWords = new List<string>();
+                            foreach (string word in blacklist)
+                            {
+                                string pattern = "\\b" + Regex.Escape(word) + "\\b";
+
+                                // Tìm kiếm các từ trong nội dung sử dụng biểu thức chính quy
+                                MatchCollection matches = Regex.Matches(content, pattern, RegexOptions.IgnoreCase);
+
+                                // Kiểm tra xem có từ nào được tìm thấy hay không
+                                if (matches.Count > 0)
+                                {
+                                    foundWords.Add(word);
+                                }
+                            }
+                            var log = new ClassificationLog
+                            {
+                                UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
+                                Time = DateTime.Now,
+                                Url = url,
+                                ResponseData = responseData,
+                                NegativeWords = JsonConvert.SerializeObject(foundWords)
+                            };
+                            var news = new NewsDetected
+                            {
+                                Url = url,
+                                ResponseData = responseData,
+                                NegativeWords = JsonConvert.SerializeObject(foundWords)
+                            };
+                            _db.NewsDetecteds.Add(news);
+                            _db.ClassificationLogs.Add(log);
+                            // Lưu thay đổi vào cơ sở dữ liệu
+                            await _db.SaveChangesAsync();
+
+                            // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
+                            ViewBag.ResponseData = formattedJson;
+                            ViewBag.FoundWords = foundWords;
+                        }
+                        else
+                        {
+                            // Xử lý trường hợp phản hồi không thành công
+                            TempData["error"] = "Fail to detect";
+                        }
                     }
                 }
-                var log = new ClassificationLog
-                {
-                    UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
-                    Time = DateTime.Now,
-                    Url = url,
-                    ResponseData = responseData,
-                    NegativeWords = JsonConvert.SerializeObject(foundWords)
-                };
-                // Thêm log vào cơ sở dữ liệu
-                _db.ClassificationLogs.Add(log);
-                // Lưu thay đổi vào cơ sở dữ liệu
-                await _db.SaveChangesAsync();
-                // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
-                ViewBag.ResponseData = formattedJson;
-                ViewBag.FoundWords = foundWords;
-            }
-            else
-            {
-                // Xử lý trường hợp phản hồi không thành công
-                TempData["error"] = "Fail to detect";
             }
         }
         catch (Exception ex)

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Test</h1>
+
+    <h2>Crawler</h2>
+    <textarea id="crawlerInput" rows="4" cols="50" placeholder="Enter URLs"></textarea><br>
+    <button onclick="crawl()">Crawl</button><br>
+    <div id="crawlerOutput"></div>
+
+    <h2>Summerize</h2>
+    <textarea id="summerizeInput" rows="4" cols="50" placeholder="Enter content"></textarea><br>
+    <input type="number" id="numSentence" placeholder="Number of sentences"><br>
+    <button onclick="summerize()">Summarize</button><br>
+    <div id="summerizeOutput"></div>
+
+    <h2>Detect News</h2>
+    <input type="text" id="detectInput" placeholder="Enter URL"><br>
+    <button onclick="detect()">Detect</button><br>
+    <div id="detectOutput"></div>
+
+    <h2>Cluster News</h2>
+    <button onclick="cluster()">Cluster</button><br>
+    <div id="clusterOutput"></div>
+
+    <script>
+        function crawl() {
+            var urls = document.getElementById("crawlerInput").value.split("\n");
+            fetch('/api/crawler', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ listUrl: urls })
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById("crawlerOutput").innerText = JSON.stringify(data));
+        }
+
+        function summerize() {
+            var content = document.getElementById("summerizeInput").value;
+            var numSentence = document.getElementById("numSentence").value;
+            fetch('/api/summerize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: content, num_sentence: numSentence })
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById("summerizeOutput").innerText = JSON.stringify(data));
+        }
+
+        function detect() {
+            var url = document.getElementById("detectInput").value;
+            fetch('/api/detectnews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: url })
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById("detectOutput").innerText = JSON.stringify(data));
+        }
+
+        function cluster() {
+            fetch('/api/cluster_news', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById("clusterOutput").innerText = JSON.stringify(data));
+        }
+    </script>
+</body>
+</html>

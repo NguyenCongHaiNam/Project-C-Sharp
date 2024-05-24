@@ -26,8 +26,9 @@ for i in range(len(bang_nguyen_am)):
     for j in range(len(bang_nguyen_am[i]) - 1):
         nguyen_am_to_ids[bang_nguyen_am[i][j]] = (i, j)
 
+
 # Stopword
-stopwords_file_path = 'C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\PythonClassifierAPI\\vietnamese-stopwords-master\\vietnamese-stopwords-dash.txt'
+stopwords_file_path = r'C:\Users\h1n4m\OneDrive\Desktop\App\ProjectC#\PythonClassifierAPI\model_detect\vietnamese-stopwords-dash.txt'
 # Các hàm xử lý văn bản
 def remove_html(txt):
     return re.sub(r'<[^>]*>', '', txt)
@@ -245,13 +246,31 @@ def process_files_test(file):
             output_file.write(text + "\n")
 
 
+def preprocess_kiet(filename_json, is_pos):
+    if(is_pos):
+        temp = "__label__positive "
+    else:
+        temp = "__label__negative "
+        
+    with open(filename_json, "r") as f:
+        data  = json.load(f)
+    output_file_path = f"data_kiet_{temp}.prep"
+    with open(output_file_path, "a", encoding="utf-8") as output_file:
+        for item in data:
+            print(item['url'])
+            output_file.write(temp)
+            output_file.write(text_preprocess(item["content"])+"\n")
+
+
 if __name__ == '__main__':
-    directory_path = "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\PythonClassifierAPI\\data"
+    directory_path = "D:\\PythonClassifierAPI\\data"
     # process_files_pos(directory_path)
     # directory_path = "D:\\PythonClassifierAPI\\data_neg\\new"
     # process_files_neg_new(directory_path)
     # directory_path = "D:\\PythonClassifierAPI\\data_neg"
     # process_files_neg(directory_path)
-    process_files_test('new_text.txt')
+    file_path = "result.json"
+    
+    preprocess_kiet(file_path, False)
     
 

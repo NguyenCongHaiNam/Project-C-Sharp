@@ -3,12 +3,12 @@ import requests
 from newspaper import Article
 import pickle
 import cleanData
-import crawlData
+from .model_detect import crawlData
 
 app = Flask(__name__)
 
 # Load trained model
-MODEL_PATH = "D:\\PythonClassifierAPI\\model\\naive_bayes.pkl"
+MODEL_PATH = "C:\\Users\\h1n4m\\OneDrive\\Desktop\\App\\ProjectC#\\PythonClassifierAPI\\model\\naive_bayes.pkl"
 model = pickle.load(open(MODEL_PATH, 'rb'))
 
 def preprocess_text(text):
@@ -48,4 +48,4 @@ def classify_text():
     return jsonify({'url': url,'content':text, 'predicted_label': result}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
