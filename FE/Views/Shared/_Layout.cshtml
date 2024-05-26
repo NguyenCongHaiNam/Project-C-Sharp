@@ -27,28 +27,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+
                         <li class="nav-item">
                             @{
                                 var idUser = HttpContextAccessor.HttpContext.Session.GetInt32("idUser");
-                                var area = "";
-                                var controller = "";
-                                var action = "";
+                                var dashboardUrl = "";
 
                                 if (idUser.HasValue && idUser.Value == 1) // Admin
                                 {
-                                    area = "Admin";
-                                    controller = "Home";
-                                    action = "Index";
+                                    dashboardUrl = "/Admin/Index";
                                 }
                                 else // User
                                 {
-                                    area = "User";
-                                    controller = "Home";
-                                    action = "Index";
+                                    dashboardUrl = "/User/Index";
                                 }
                             }
-                            <a class="nav-link text-dark" asp-area="@area" asp-controller="@controller" asp-action="@action">Dashboard</a>
+                            <a class="nav-link text-dark" href="@dashboardUrl">Dashboard</a>
                         </li>
+                        
                     </ul>
 
                 </div>

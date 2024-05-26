@@ -46,16 +46,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXENsYXNzaWZ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/CommentClassify.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXENvbW1lbnRDbGFzc2lmeS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/DownloadVideo.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXERvd25sb2FkVmlkZW8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/Predict.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXFByZWRpY3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/Settings.cshtml]
@@ -64,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/Summarize.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXFN1bW1hcml6ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Home/Train.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclxWaWV3c1xIb21lXFRyYWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/h1n4m/OneDrive/Desktop/App/ProjectC\#/FE/Areas/User/Views/Shared/_Layout.cshtml]

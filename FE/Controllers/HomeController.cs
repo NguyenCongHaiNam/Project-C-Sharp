@@ -100,6 +100,8 @@ namespace FE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string email, string password)
         {
+            var user_id = HttpContext.Session.GetInt32("idUser");
+            Console.WriteLine(user_id);
             if (HttpContext.Session.GetInt32("idUser") != null)
             {
                 return Redirect("/Home/Home");
@@ -110,13 +112,13 @@ namespace FE.Controllers
                 var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
                 if (data.Count() > 0)
                 {
-                    var loginHistory = new Log
-                    {
-                        idUser = data.FirstOrDefault().IdUser,
-                        logContent = "Login success with email: " + email,
-                        dateTime = DateTime.Now
-                    };
-                    _db.Log.Add(loginHistory);
+                    // var loginHistory = new Log
+                    // {
+                    //     idUser = data.FirstOrDefault().IdUser,
+                    //     logContent = "Login success with email: " + email,
+                    //     dateTime = DateTime.Now
+                    // };
+                    // _db.Log.Add(loginHistory);
                     // Tăng số lượt truy cập
                     var today = DateTime.Today;
                     var visitCount = _db.VisitCount.FirstOrDefault(vc => vc.Date == today);
@@ -133,6 +135,7 @@ namespace FE.Controllers
                     HttpContext.Session.SetString("FullName", data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName);
                     HttpContext.Session.SetString("Email", data.FirstOrDefault().Email);
                     HttpContext.Session.SetInt32("idUser",data.FirstOrDefault().IdUser);
+                    Console.WriteLine(HttpContext.Session.GetInt32("idUser"));
                     await _hubContext.Clients.All.SendAsync("OnConnectedAsync");
                     return View("Home");             
                 }

@@ -15,6 +15,22 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 
+// Tạo lớp ModelViewModel
+public class ModelViewModel
+{
+    public int Id { get; set; }
+    public int IdUser { get; set; }
+    public string ModelName { get; set; }
+    public string ModelPath { get; set; }
+    public double Accuracy { get; set; }
+}
+
+// Tạo lớp bọc để chứa mảng models
+public class ModelsWrapper
+{
+    public List<ModelViewModel> Models { get; set; }
+}
+
 [Area("User")]
 public class HomeController : BaseController
 { 
@@ -36,11 +52,14 @@ public class HomeController : BaseController
         {
             var json = GetChartData();
             ViewBag.json = json;
+            Console.WriteLine("1");
             return View();
         }
         else
         {
+            Console.WriteLine("2");
             return Redirect("/Home/Login");
+            // return View();
         }
     }
     [HttpGet("/User/Classify")]
@@ -59,86 +78,104 @@ public class HomeController : BaseController
 
         // Convert JArray thành List<string>
         List<string> blacklist = blacklistArray.ToObject<List<string>>();
+
+        string responseData = string.Empty;
+        List<string> foundWords = new List<string>();
+
         try
         {
             using (var connection = new SqlConnection("SERVER=h1n4m\\MSSQLSERVER01;DATABASE=NewsClassifier;UID=h1n4m;PWD=h1n4m;"))
             {
                 await connection.OpenAsync();
-
                 var commandText = "SELECT COUNT(*) FROM NewsDetected WHERE Url = @Url";
-                Console.WriteLine(commandText);
                 using (var command = new SqlCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue("@Url", url);
-
                     var result = await command.ExecuteScalarAsync();
-                    Console.WriteLine(result);
                     int count = Convert.ToInt32(result);
+                    
                     if (count > 0)
                     {
                         var newsDetected = _db.NewsDetecteds.FirstOrDefault(response => response.Url == url);
                         if (newsDetected != null)
                         {
-                            ViewBag.ResponseData = newsDetected.ResponseData;
-                            ViewBag.FoundWords = newsDetected.NegativeWords;
+                            responseData = newsDetected.ResponseData;
+                            foundWords = JsonConvert.DeserializeObject<List<string>>(newsDetected.NegativeWords);
+                            ViewBag.ResponseData = responseData;
+                            ViewBag.FoundWords = foundWords;
+                            Console.WriteLine(newsDetected.NegativeWords);
                         }
+                        var log = new ClassificationLog
+                        {
+                            UserId = HttpContext.Session.GetInt32("idUser") ?? 0,
+                            Time = DateTime.Now,
+                            Url = url,
+                            ResponseData = responseData,
+                            NegativeWords = JsonConvert.SerializeObject(foundWords)
+                        };
+                        _db.ClassificationLogs.Add(log);
+                        await _db.SaveChangesAsync();
                     }
                     else
                     {
                         // Tạo đối tượng chứa dữ liệu JSON
                         var jsonContent = new StringContent("{\"url\": \"" + url + "\"}", Encoding.UTF8, "application/json");
+                        
                         // Gửi yêu cầu POST đến API
-                        HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
-                        // Kiểm tra xem phản hồi có thành công không
-                        if (response.IsSuccessStatusCode)
+                        using (HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent))
                         {
-                            // Đọc nội dung của phản hồi
-                            string responseData = await response.Content.ReadAsStringAsync();
-                            // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
-                            string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
-                            JObject responseDataObject = JObject.Parse(responseData);
-                            string content = responseDataObject["data"]["content"].ToString();
-                            List<string> foundWords = new List<string>();
-                            foreach (string word in blacklist)
+                            // Kiểm tra xem phản hồi có thành công không
+                            if (response.IsSuccessStatusCode)
                             {
-                                string pattern = "\\b" + Regex.Escape(word) + "\\b";
+                                // Đọc nội dung của phản hồi
+                                responseData = await response.Content.ReadAsStringAsync();
+                                // Chuyển đổi chuỗi JSON thành chuỗi JSON định dạng
+                                string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseData), Formatting.Indented);
+                                JObject responseDataObject = JObject.Parse(responseData);
+                                string content = responseDataObject["data"]["content"].ToString();
 
-                                // Tìm kiếm các từ trong nội dung sử dụng biểu thức chính quy
-                                MatchCollection matches = Regex.Matches(content, pattern, RegexOptions.IgnoreCase);
-
-                                // Kiểm tra xem có từ nào được tìm thấy hay không
-                                if (matches.Count > 0)
+                                foreach (string word in blacklist)
                                 {
-                                    foundWords.Add(word);
-                                }
-                            }
-                            var log = new ClassificationLog
-                            {
-                                UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
-                                Time = DateTime.Now,
-                                Url = url,
-                                ResponseData = responseData,
-                                NegativeWords = JsonConvert.SerializeObject(foundWords)
-                            };
-                            var news = new NewsDetected
-                            {
-                                Url = url,
-                                ResponseData = responseData,
-                                NegativeWords = JsonConvert.SerializeObject(foundWords)
-                            };
-                            _db.NewsDetecteds.Add(news);
-                            _db.ClassificationLogs.Add(log);
-                            // Lưu thay đổi vào cơ sở dữ liệu
-                            await _db.SaveChangesAsync();
+                                    string pattern = "\\b" + Regex.Escape(word) + "\\b";
 
-                            // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
-                            ViewBag.ResponseData = formattedJson;
-                            ViewBag.FoundWords = foundWords;
-                        }
-                        else
-                        {
-                            // Xử lý trường hợp phản hồi không thành công
-                            TempData["error"] = "Fail to detect";
+                                    // Tìm kiếm các từ trong nội dung sử dụng biểu thức chính quy
+                                    MatchCollection matches = Regex.Matches(content, pattern, RegexOptions.IgnoreCase);
+
+                                    // Kiểm tra xem có từ nào được tìm thấy hay không
+                                    if (matches.Count > 0)
+                                    {
+                                        foundWords.Add(word);
+                                    }
+                                }
+
+                                var news = new NewsDetected
+                                {
+                                    Url = url,
+                                    ResponseData = responseData,
+                                    NegativeWords = JsonConvert.SerializeObject(foundWords)
+                                };
+                                _db.NewsDetecteds.Add(news);
+                                var log = new ClassificationLog
+                                {
+                                    UserId = HttpContext.Session.GetInt32("idUser") ?? 0, // Lấy ID của người dùng từ Session
+                                    Time = DateTime.Now,
+                                    Url = url,
+                                    ResponseData = responseData,
+                                    NegativeWords = JsonConvert.SerializeObject(foundWords)
+                                };
+                                _db.ClassificationLogs.Add(log);
+                                await _db.SaveChangesAsync();
+
+                                // Hiển thị dữ liệu phản hồi dưới dạng JSON trong ViewBag
+                                ViewBag.ResponseData = formattedJson;
+                                ViewBag.FoundWords = foundWords;
+                                Console.WriteLine(foundWords);
+                            }
+                            else
+                            {
+                                // Xử lý trường hợp phản hồi không thành công
+                                TempData["error"] = "Fail to detect";
+                            }
                         }
                     }
                 }
@@ -147,11 +184,12 @@ public class HomeController : BaseController
         catch (Exception ex)
         {
             // Xử lý lỗi nếu có
-            TempData["error"] =  ex.Message;
+            TempData["error"] = ex.Message;
         }
 
         return View();
     }
+
     [HttpGet("/User/Summarize")]
     public ActionResult Summarize()
     {
@@ -198,6 +236,91 @@ public class HomeController : BaseController
 
         return View();
     }
+    [HttpGet("/User/Train")]
+    public ActionResult Train()
+    {
+        return View();
+    }
+    [HttpPost("/User/Train")]
+    public async Task<IActionResult> Train(IFormFile trainData, string modelName, float alpha, bool fitPrior)
+    {
+        int userId = HttpContext.Session.GetInt32("idUser") ?? 0;
+        Console.WriteLine(userId);
+        if (trainData == null || string.IsNullOrEmpty(modelName))
+        {
+            ViewBag.Error = "All fields are required.";
+            return View();
+        }
+
+        using (var memoryStream = new MemoryStream())
+        {
+            await trainData.CopyToAsync(memoryStream);
+            var form = new MultipartFormDataContent();
+            form.Add(new StringContent(alpha.ToString()), "alpha");
+            form.Add(new StringContent(fitPrior.ToString().ToLower()), "fitPrior");
+            form.Add(new StringContent(modelName), "modelName");
+            form.Add(new ByteArrayContent(memoryStream.ToArray()), "trainData", trainData.FileName);
+            form.Add(new StringContent(userId.ToString()), "userId");
+            var response = await _httpClient.PostAsync("http://localhost:5000/train-model", form);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseData = await response.Content.ReadAsStringAsync();
+                ViewBag.ResponseData = responseData;
+            }
+            else
+            {
+                ViewBag.Error = "Error occurred while training the model.";
+            }
+        }
+
+        return View();
+    }
+    [HttpGet("/User/Predict")]
+    public async Task<IActionResult> Predict()
+    {
+        int userId = HttpContext.Session.GetInt32("idUser") ?? 0;
+
+        var resmodel = await _httpClient.GetAsync("http://localhost:5000/models?user_id=" + userId);
+        if (resmodel.IsSuccessStatusCode)
+        {
+            var models = await resmodel.Content.ReadAsStringAsync();
+            string formattedJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(models), Formatting.Indented);
+            ViewBag.Models = formattedJson;
+        }
+        else
+        {
+            ViewBag.Error = "Error occurred while fetching models.";
+        }
+
+        return View();
+    }
+
+    [HttpPost("/User/Predict")]
+    public async Task<IActionResult> Predict(string modelName, string text)
+    {
+        int userId = HttpContext.Session.GetInt32("idUser") ?? 0;
+        if (string.IsNullOrEmpty(modelName) || string.IsNullOrEmpty(text))
+        {
+            ViewBag.Error = "All fields are required.";
+            return View();
+        }
+
+        var postData = new { model_name = modelName, text = text , user_id = userId };
+        var jsonContent = new StringContent(JsonConvert.SerializeObject(postData), Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync("http://localhost:5000/predict", jsonContent);
+        if (response.IsSuccessStatusCode)
+        {
+            var responseData = await response.Content.ReadAsStringAsync();
+            ViewBag.ResponseData = responseData;
+        }
+        else
+        {
+            ViewBag.Error = "Error occurred while predicting.";
+        }
+
+        return View();
+    }
 
     [HttpGet("/User/Logout")]
     public async Task<IActionResult> Logout()
@@ -205,20 +328,6 @@ public class HomeController : BaseController
         HttpContext.Session.Clear();
         await _hubContext.Clients.All.SendAsync("OnDisconnectedAsync");
         return Redirect("/Home/Home");
-    }
-
-
-    [HttpGet("/User/Crawler")]
-    public ActionResult Crawler(){
-        return View();
-    }
-    [HttpGet("/User/CommentClassify")]
-    public ActionResult CommentClassify(){
-        return View();
-    }
-    [HttpGet("/User/DownloadVideo")]
-    public ActionResult DownloadVideo(){
-        return View();
     }
     [HttpGet("/User/ActivityLog")]
     public IActionResult ActivityLog()
@@ -232,13 +341,9 @@ public class HomeController : BaseController
     public ActionResult Settings(){
         return View();
     }
-    public IActionResult Error()
-    {
-        return View();
-    }
     [HttpPost("/User/Settings")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Settings(Users model)
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Settings(Users model)
         {
             if (ModelState.IsValid)
             {

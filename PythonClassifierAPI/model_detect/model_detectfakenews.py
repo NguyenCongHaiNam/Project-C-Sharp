@@ -19,7 +19,7 @@ def getDomain(url):
 
 def check_blacklist(domain):
     basedir = os.path.abspath(os.path.dirname(__file__))
-    black = open(basedir+ "\\model_detect\\blacklist.txt").read().split("\n")
+    black = open(basedir+ "\\blacklist.txt").read().split("\n")
     for item in black:
         if(item in domain):
             return True

@@ -1,0 +1,80 @@
+text,label
+"Sản phẩm này rất tốt, tôi rất hài lòng.",positive
+"Sản phẩm tệ nhất mà tôi từng mua.",negative
+"Không tệ, nhưng có thể cải thiện.",neutral
+"Tuyệt vời! Tôi rất đề xuất.",positive
+"Trải nghiệm tồi tệ. Tôi sẽ không mua lại.",negative
+"Chỉ ổn thôi, không có gì đặc biệt.",neutral
+"Vượt xa mong đợi của tôi. 5 sao!",positive
+"Rất thất vọng. Sản phẩm bị hỏng sau một tuần.",negative
+"Chất lượng trung bình, nhưng giá cả hợp lý.",neutral
+"Sản phẩm tốt nhất từ trước đến nay! Tôi rất hài lòng.",positive
+"Dịch vụ khách hàng rất tệ. Tôi rất không hài lòng.",negative
+"Sản phẩm ổn, không phải tốt nhất nhưng cũng không phải tệ nhất.",neutral
+"Chất lượng tuyệt vời và hiệu suất tốt.",positive
+"Kinh khủng. Đừng lãng phí tiền vào sản phẩm này.",negative
+"Sản phẩm khá tốt, đúng như mong đợi của tôi.",neutral
+"Chất lượng rất tốt, tôi rất vui với sản phẩm này.",positive
+"Tôi ghét sản phẩm này, nó vô dụng.",negative
+"Hiệu suất trung bình, tôi mong đợi nhiều hơn.",neutral
+"Tuyệt vời! Vượt xa mong đợi của tôi.",positive
+"Chất lượng kém, sản phẩm bị hỏng nhanh chóng.",negative
+"Cảm xúc trung lập về sản phẩm này, khá ổn.",neutral
+"Tôi rất đề xuất cho ai muốn sản phẩm chất lượng.",positive
+"Hoàn toàn lãng phí tiền, rất thất vọng.",negative
+"Không tốt, không xấu, chỉ ở mức trung bình.",neutral
+"Trải nghiệm tuyệt vời, tôi sẽ mua lại.",positive
+"Không đáng tiền, chất lượng rất kém.",negative
+"Dịch vụ trung lập, không có gì đặc biệt.",neutral
+"Chất lượng hàng đầu, tôi rất hài lòng.",positive
+"Kinh khủng, sản phẩm bị hỏng sau một lần sử dụng.",negative
+"Sản phẩm tốt, nhưng không có gì nổi bật.",neutral
+"Tôi rất vui với sản phẩm này!",positive
+"Tôi không đề xuất, rất thất vọng.",negative
+"Sản phẩm trung bình, không có gì nổi bật.",neutral
+"Tuyệt vời! Tôi sẽ mua thêm trong tương lai.",positive
+"Trải nghiệm rất tệ, tôi sẽ không mua lại.",negative
+"Sản phẩm khá tốt, đáp ứng mong đợi cơ bản của tôi.",neutral
+"Hoàn hảo! Đúng như những gì tôi cần.",positive
+"Rất tệ, sản phẩm không hoạt động như quảng cáo.",negative
+"Sản phẩm khá ổn, không có gì nổi bật.",neutral
+"Chất lượng sản phẩm tuyệt vời, tôi sẽ mua lại lần nữa.",positive
+"Sản phẩm không giống như mô tả, tôi rất thất vọng.",negative
+"Dịch vụ khách hàng tốt, tôi hài lòng với cách họ xử lý vấn đề.",positive
+"Sản phẩm bị hỏng sau một tuần sử dụng.",negative
+"Giá cả hợp lý và chất lượng đáng kinh ngạc.",positive
+"Sản phẩm không hoạt động như mong đợi, tôi sẽ yêu cầu hoàn tiền.",negative
+"Rất thích sản phẩm này, chắc chắn sẽ giới thiệu cho bạn bè.",positive
+"Tôi không hài lòng với chất lượng sản phẩm, rất kém.",negative
+"Dịch vụ giao hàng nhanh chóng, sản phẩm đến đúng giờ.",positive
+"Sản phẩm không đạt chất lượng như quảng cáo, tôi không đề xuất.",negative
+"Sản phẩm đẹp và bền, rất hài lòng.",positive
+"Tôi rất thất vọng vì sản phẩm không hoạt động.",negative
+"Chất lượng tuyệt vời, đáng giá tiền.",positive
+"Sản phẩm bị lỗi, tôi muốn đổi trả.",negative
+"Dịch vụ tốt, hỗ trợ khách hàng nhiệt tình.",positive
+"Sản phẩm rất kém, không đáng tiền.",negative
+"Giá cả phải chăng, chất lượng tốt.",positive
+"Tôi rất không hài lòng với dịch vụ giao hàng.",negative
+"Sản phẩm chất lượng tốt, tôi sẽ mua thêm.",positive
+"Rất tệ, sản phẩm bị hỏng sau một lần sử dụng.",negative
+"Chất lượng tốt, dịch vụ chăm sóc khách hàng tuyệt vời.",positive
+"Tôi rất thất vọng với sản phẩm này.",negative
+"Sản phẩm tốt, đúng như mô tả.",positive
+"Dịch vụ khách hàng kém, không hỗ trợ tốt.",negative
+"Sản phẩm hoạt động tốt, tôi rất hài lòng.",positive
+"Sản phẩm không đáng giá tiền, rất tệ.",negative
+"Dịch vụ tốt, sản phẩm đạt chất lượng.",positive
+"Sản phẩm không tốt, tôi sẽ không mua lại.",negative
+"Tôi hài lòng với sản phẩm, đúng như mong đợi.",positive
+"Sản phẩm kém chất lượng, không đáng tiền.",negative
+"Sản phẩm chất lượng cao, tôi rất hài lòng.",positive
+"Dịch vụ khách hàng rất tệ, tôi rất không hài lòng.",negative
+"Sản phẩm hoạt động tốt và bền.",positive
+"Tôi không đề xuất sản phẩm này, rất tệ.",negative
+"Sản phẩm đúng như mô tả, rất hài lòng.",positive
+"Dịch vụ rất kém, không giải quyết vấn đề của tôi.",negative
+"Giá tốt và chất lượng sản phẩm tuyệt vời.",positive
+"Sản phẩm kém chất lượng, tôi sẽ hoàn trả.",negative
+"Tôi rất hài lòng với dịch vụ và sản phẩm.",positive
+"Sản phẩm không tốt như mong đợi, rất thất vọng.",negative

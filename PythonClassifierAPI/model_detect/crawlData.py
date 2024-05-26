@@ -82,7 +82,7 @@ def crawler_viettan(url):
 def start_crawl(url):
     print("here")
     domain = getDomain(url)
-    
+    print(domain)
     if not is_url(url):
         result = {
             'url': url,
@@ -135,7 +135,7 @@ def start_crawl(url):
     
     result_isfake = detect_content(result["content"])
     
-    if result_isfake:
+    if result_isfake or check_blacklist(domain):
         result['predicted_label'] = "Danger news"
     else:
         result['predicted_label'] = "Safe news"

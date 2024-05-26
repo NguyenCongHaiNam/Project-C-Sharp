@@ -1,0 +1,65 @@
+@using Newtonsoft.Json.Linq
+
+@{
+    ViewBag.Title = "Train Model";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Train Model</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/User/Index">Dashboard</a></li>
+            <li class="breadcrumb-item active">Train Model</li>
+        </ol>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="trainData">Training Data (CSV):</label>
+                <input type="file" class="form-control" id="trainData" name="trainData" required>
+            </div>
+            <div class="form-group">
+                <label for="modelName">Model Name:</label>
+                <input type="text" class="form-control" id="modelName" name="modelName" required>
+            </div>
+            <div class="form-group">
+                <label for="alpha">Alpha:</label>
+                <input type="number" step="0.01" class="form-control" id="alpha" name="alpha" required>
+            </div>
+            <div class="form-group">
+                <label for="fitPrior">Fit Prior:</label>
+                <input type="checkbox" id="fitPrior" name="fitPrior">
+            </div>
+            <button type="submit" class="btn btn-primary">Train</button>
+        </form>
+
+
+        <div class="mt-4">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> @ViewBag.Error
+                </div>
+            }
+            @if (ViewBag.ResponseData != null)
+            {
+                var responseData = JObject.Parse(ViewBag.ResponseData);
+                var accuracy = responseData["accuracy"];
+                if (accuracy != null)
+                {
+                    <div class="card">
+                        <div class="card-body" id="responseResponseData">
+                            <strong>Accuracy:</strong> @Html.Raw(accuracy)
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+<script src="/Admin/js/site.js"></script>
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}

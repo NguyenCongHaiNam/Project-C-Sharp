@@ -38,32 +38,33 @@
                         <div class="card-body">
                             <table class="table">
                                 <thead>
+                                     @{
+                                        string url = clusterJson["data"]["url"];
+                                        string title = clusterJson["data"]["title"];
+                                        string published_date = clusterJson["data"]["published_date"];
+                                        string top_img = clusterJson["data"]["top_img"];
+                                        string summarize = clusterJson["data"]["summerize"];
+                                        string predicted_label = clusterJson["data"]["predicted_label"];
+                                    }
                                     <tr>
                                         <th scope="col">Title</th>
                                         <th scope="col">Image</th>
                                         <th scope="col">Time</th>
                                         <th scope="col">Summary</th>
                                         <th scope="col">Detect</th>
-                                        <th scope="col">Negative Word</th>
+                                        <th scope="col" style="display: @(predicted_label == "Danger news" ? "table-cell" : "none")">Negative Word</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     
                                         <tr>
-                                            @{
-                                                string url = clusterJson["data"]["url"];
-                                                string title = clusterJson["data"]["title"];
-                                                string published_date = clusterJson["data"]["published_date"];
-                                                string top_img = clusterJson["data"]["top_img"];
-                                                string summarize = clusterJson["data"]["summerize"];
-                                                string predicted_label = clusterJson["data"]["predicted_label"];
-                                            }
+                                           
                                             <td><a href="@url">@title</a></td>
                                             <td><img src="@top_img" style="width:50%;height:50%;"></td>
                                             <td>@published_date</td>
                                             <td>@(summarize.Length > 200 ? summarize.Substring(0, 200) + "..." : summarize)</td>
                                             <td style="font-weight: bold; color: @(predicted_label == "Danger news" ? "red" : "green")">@predicted_label</td>
-                                            <td>@if(ViewBag.FoundWords != null){
+                                            <td style="display: @(predicted_label == "Danger news" ? "table-cell" : "none")">@if(ViewBag.FoundWords != null){
                                                 var found = ViewBag.FoundWords;
                                                 foreach (var word in found)
                                                 {

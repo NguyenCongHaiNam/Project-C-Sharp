@@ -7,7 +7,7 @@ countS = 0;
 
 Datas.forEach(function(data) {
   var jsonData = JSON.parse(data);
-  if(jsonData.predicted_label == "Danger news"){
+  if(jsonData.data.predicted_label == "Danger news"){
     countD++;
   }else{
     countS++;
